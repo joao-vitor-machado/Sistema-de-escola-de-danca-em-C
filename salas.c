@@ -3,6 +3,8 @@
 
 void cadastrarSala(Sala *salas, int *qtdSalas)
 {
+    int i, j;
+
     if(*qtdSalas%5 == 0){
         salas = realloc(salas, (*qtdSalas+5) * sizeof(Sala));
     }
@@ -17,6 +19,13 @@ void cadastrarSala(Sala *salas, int *qtdSalas)
     printf("Selecione a opcao de horario que a sala sera utilizada: \n");
     printf("1- Período da Manhã (9:00 - 12:00)\n2- Período da Tarde (14:00 - 17:00)\n3- Período da Noite (18:00 - 21:00)\n");
     scanf("%d", &salas.horario);
+
+    for(i=0; i<3; i++){ //percorre as linhas (os horários da sala)
+        for(j=0; j<7; j++){ //percorre as colunas (os dias da semana)
+            if(i==salas.horario-1 && j==salas.diaSemana-1)
+                salas.matrizHorarios[i][j]=1;
+        }
+    }
 }
 
 void excluirSala(Sala *salas, int *qtdSalas)
