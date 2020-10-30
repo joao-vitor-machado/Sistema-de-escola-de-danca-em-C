@@ -47,7 +47,7 @@ void TelaMenuProfessor()
 }
 
 
-void cadastrarProfessor(Professor* professores, int professoresCadastrados){
+void cadastrarProfessor(Professor* professores, int* professoresCadastrados){
 
     int opcao;
 
