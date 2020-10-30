@@ -103,6 +103,7 @@ void CadastrarCliente(Cliente *aluno, int *index, int *alunosCadastrados)
             }
             system("cls");
             (*alunosCadastrados)++;
+            LimparEspacoVazio(aluno,tempIndex);
             sucesso = 1;
         }
         else
@@ -116,26 +117,61 @@ void CadastrarCliente(Cliente *aluno, int *index, int *alunosCadastrados)
 
 void AlterarCliente(Cliente *aluno, int *codigo)
 {
+    int qntModalidades = 1;
     int indexAlterar = PesquisarCodigo(*codigo);
+    free(aluno[indexAlterar].modalidade);
+
     printf("\n---------------------------\n");
     printf("Alteracao dos dados do Cliente");
     printf("\n---------------------------\n");
     printf("Voce esta alterando o aluno: %s", aluno[indexAlterar].nome);
     printf("\n---------------------------\n\n");
-    printf("Nome: %s\t\t", aluno[indexAlterar].nome);
-    printf("\nModalidade: ");
+    printf("Nome: %s\t\t");
+    fgets(aluno[tempIndex].nome, 255, stdin);
+
+    do
+    {
+        printf("\nEm quantas modalidades você deseja se cadastrar?: ");
+        scanf("%d", &qntModalidades);
+        if (qntModalidades < 0)
+            printf("insira um valor válido\n");
+    } while (qntModalidades < 0);
+
+    aluno[indexAlterar].modalidade = (int *)malloc(qntModalidades * sizeof(int));
+
+    for (int i = 1; i <= qntModalidades; i++)
+    {
+        printf("\ncódigo da modalidade%d: ", i);
+        scanf("%d", aluno[indexAlterar].modalidade[i - 1]);
+        getchar();
+    }
     printf("\nIdade: \t\t");
+    scanf("%d", aluno[indexAlterar].idade);
+    getchar();
     printf("Local de nascimento: ");
+    fgets(aluno[indexAlterar].localDeNascimento, 255, stdin);
     printf("\nValor da mensalidade: R$");
+    scanf("%d", aluno[indexAlterar].valorMensalidade);
+    getchar();
+    CalcularMensalidade(aluno, indexAlterar, &qntModalidades);
     printf("\nVencimento do Boleto: ");
+    fgets(aluno[indexAlterar].dataVencimentoBoleto, 10, stdin);
     printf("\n---------------------------\n");
-    printf("Dados do responsavel");
-    printf("\n---------------------------\n");
-    printf("Nome: ");
+    if (aluno[indexAlterar].responsavel == 1)
+    {
+        printf("Dados do responsavel");
+        printf("\n---------------------------\n");
+        printf("Nome: ");
+        fgets(aluno[indexAlterar].nomeResponsavel, 255, stdin);
+    }
     printf("\nRG: ");
+    fgets(aluno[indexAlterar].RG, 15, stdin);
     printf("\nCPF: ");
+    fgets(aluno[indexAlterar].CPF, 11, stdin);
     printf("\nEndereco: ");
+    fgets(aluno[indexAlterar].endereco, 255, stdin);
     printf("\n---------------------------\n");
+    LimparEspacoVazio(aluno,indexAlterar);
     system("cls");
 }
 

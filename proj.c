@@ -6,8 +6,8 @@
 #include "professores.h"
 #include "salas.h"
 #include "modalidades.h"
-#include "horarios.h"
-#include "mensalidade.h"
+//#include "horarios.h"
+//#include "mensalidade.h"
 
 #define valorAcrescimoMemoria 5
 
@@ -129,12 +129,6 @@ int main()
 
         break;
     }
-    case 5:
-    {
-        TelaMenuHorario();
-        scanf("%d", &opcaoSubMenu);
-        break;
-    }
     default:
     {
         printf("%Opção inválida!");
@@ -153,11 +147,6 @@ void TelaMenuPrincipal()
     printf("2) *Menu Professores\n");
     printf("3) *Menu Salas\n");
     printf("4) *Menu Modalidades\n");
-    printf("5) *Menu Horario\n");
-    printf("");
-    printf("");
-    printf("");
-    printf("");
     printf("---------------------------\n");
 }
 
@@ -211,24 +200,6 @@ void TelaMenuModalidade()
     printf("4) *Exclusao de Modalidade\n");
     printf("0) *Cancelar\n");
     printf("---------------------------\n");
-}
-
-void TelaMenuHorario()
-{
-
-    system("cls");
-
-    printf("---------------------------\n");
-    printf("    Menu Horario\n");
-    printf("---------------------------\n");
-    printf("1) *Cadastrar Horario\n");
-    printf("2) *Consulta de Horario\n");
-    printf("3) *Alteracao de Horario\n");
-    printf("4) *Exclusao de Horario\n");
-    printf("0) *Cancelar\n");
-    printf("---------------------------\n");
-
-    system("cls");
 }
 
 int ValidarCodigo()
