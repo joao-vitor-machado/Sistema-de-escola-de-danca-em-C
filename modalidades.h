@@ -12,9 +12,9 @@ typedef struct modalidades{
     int sala; //sala onde será lecionada a aula
 } Modalidade;
 
-void cadastrarModalidade(Modalidade*);
-void excluirModalidade(Modalidade*);
+void cadastrarModalidade(Modalidade*, int*);
+void excluirModalidade(Modalidade*, int*);
 void alterarModalidade(Modalidade*);
-void consultarModalidade(Modalidade*);
+void consultarModalidade(Modalidade*, int*);
 
 #endif // _MODALIDADES_H

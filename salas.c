@@ -22,6 +22,7 @@ void cadastrarSala(Sala *salas, int *qtdSalas)
 
     for(i=0; i<3; i++){ //percorre as linhas (os horários da sala)
         for(j=0; j<7; j++){ //percorre as colunas (os dias da semana)
+            salas->matrizHorarios[i][j]=0;
             if(i==salas.horario-1 && j==salas.diaSemana-1)
                 salas.matrizHorarios[i][j]=1;
         }
