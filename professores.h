@@ -17,8 +17,8 @@ typedef struct professores{
 }Professor;
 
 void TelaMenuProfessor();
-void cadastrarProfessor(Professor*, int*);
-void alterarInfoProfessor(Professor*, int*);
+void cadastrarProfessor(Professor*, int*, Sala*);
+void alterarInfoProfessor(Professor*, int*, Sala*);
 void exclusirProfessor(Professor*, int*);
 void consultarProfessor(Professor*, int*);
 
