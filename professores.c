@@ -94,42 +94,28 @@ void cadastrarProfessor(Professor* professores, int* professoresCadastrados){
     printf("\nDigite o salário por aluno\n");
     scanf("%f", professores[*professoresCadastrados].salarioPorAluno);
 
+    printf("Estas são as salas cadastradas no sistema: \n");//Mostra todas as salas que existem
+    for(i=0; i<*qtdSalas; i++){
+        printf("%d: %s\n", salas[i].numero, salas[i].nome);
+    }//end
+
     printf("\nDigite o número da sala que será usada por ele(a)\n");
     scanf("%d", professores[*professoresCadastrados].salaUsada);
 
-
-    printf("\n Horários disponíveis\n\n");
-    printf("dom     |seg    |ter    |qua    |qui    |sex    |sab\n");
-    for(i = 0; i < 7; i++){
-        if(salas[nsalas].horarios[i][0] == 1)
-            printf("disponível  ");
-        else
-            printf("indiponível  ");
-        
+    for(i=0; salas[i].numero != sprofessores[*professoresCadastrados].salaUsada; i++);
+    printf("Estas sao as informacoes cadastradas na sala %d\n", professores[*professoresCadastrados].salaUsada);
+    printf("Nome: %s\n", salas[i].nome);
+    if(salas[i].horario==1){
+        printf("Horário: Período da Manhã (9:00 - 12:00)\n");
+    } else {
+        if(salas[i].horario==2){
+            printf("Horário: Período da Tarde (14:00 - 17:00)\n");
+        } else {
+            if(salas[i].horario==3){
+                printf("Horário: Período da Noite (18:00 - 21:00)\n");
+            }
+        }
     }
-
-    printf("\n");
-
-    for(i = 0; i < 7; i++){
-        if(salas[nsalas].horarios[i][1] == 1)
-            printf("disponível  ");
-        else
-            printf("indiponível  ");
-        
-    }
-
-    printf("\n");
-
-    for(i = 0; i < 7; i++){
-        if(salas[nsalas].horarios[i][2] == 1)
-            printf("disponível  ");
-        else
-            printf("indiponível  ");
-        
-    }
-
-
-    printf("\n");
 
     printf("Digite o número de horários que serão usados dessa sala\n");
     scanf("%d", &numHorarios);
@@ -147,7 +133,7 @@ void cadastrarProfessor(Professor* professores, int* professoresCadastrados){
 }
 
 void alterarProfessor(Professor *professores, int* professoresCadastrados){
-    int opcao = 1, codigo, salaPretendida, Status;
+    int opcao = 1, codigo, salaPretendida, Status, modalidadePretendida;
 
 
     printf("\nQual o código do professor que deseja alterar>\n");
@@ -183,10 +169,17 @@ void alterarProfessor(Professor *professores, int* professoresCadastrados){
                 break;
 
             case 2:
-                printf("\n\nA modalidade lecionada é a de código %d", );
+                printf("\n\nA modalidade lecionada é a de código %d", professores[codigo].modalidadeLecionada);
+
 
                 printf("\n\nQual o código da modalidade que será lecionada a partir de hoje?\n");// ARRUMAR ISSO AQUI
-                scanf("%d", );
+                scanf("%d", &modalidadePretendida);
+
+                for(i=0; i<*qtdModalidades; i++){
+                if(modalidadePretendida == modalidades[i].codigo ){
+                    professores[codigo].modalidadeLecionada = modalidadePretendida;
+                }
+    }
                 break;
 
             case 3:
@@ -272,8 +265,8 @@ void alterarProfessor(Professor *professores, int* professoresCadastrados){
                         scanf("%d", &salaPretendida);
                         Status = 0;
                     }else{
-                        for(i=0; salas[i].numero != salaConsultada; i++);
-                            printf("Estas sao as informacoes cadastradas na sala %d\n", salaConsultada);
+                        for(i=0; salas[i].numero != salaPretendida; i++);
+                            printf("Estas sao as informacoes cadastradas na sala %d\n", salaPretendida);
                             printf("Nome: %s\n", salas[i].nome);
 
                             if(salas[i].horario==1){
@@ -295,7 +288,9 @@ void alterarProfessor(Professor *professores, int* professoresCadastrados){
                         pritnf("\n\nQual dos horários será utilizado?\n");
                         scanf("%d", &horarioPretendido);
 
-                        for(i = 0; i < )
+                       if(salas[horarioPretendido].horario == 1){
+                           
+                       }
                     }
                 }while(Status != 1);
 
