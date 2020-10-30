@@ -49,7 +49,7 @@ void TelaMenuProfessor()
 
 void cadastrarProfessor(Professor* professores, int* professoresCadastrados){
 
-    int opcao;
+    int opcao, numHorarios;
 
     professoresCadastrados+=1;
 
@@ -95,7 +95,7 @@ void cadastrarProfessor(Professor* professores, int* professoresCadastrados){
     scanf("%f", professores[*professoresCadastrados].salarioPorAluno);
 
     printf("\nDigite o número da sala que será usada por ele(a)\n");
-    scanf("%d", professores[*professprofessoresCadastrados].salaUsada);
+    scanf("%d", professores[*professoresCadastrados].salaUsada);
 
 
     printf("\n Horários disponíveis\n\n");
@@ -147,7 +147,7 @@ void cadastrarProfessor(Professor* professores, int* professoresCadastrados){
 }
 
 void alterarProfessor(Professor *professores, int* professoresCadastrados){
-    int opcao = 1, codigo;
+    int opcao = 1, codigo, salaPretendida, Status;
 
 
     printf("\nQual o código do professor que deseja alterar>\n");
@@ -168,8 +168,6 @@ void alterarProfessor(Professor *professores, int* professoresCadastrados){
         printf("8) *Endereço\n");
         printf("9) *Salario por aluno\n");
         printf("10) *Sala usada\n");
-        printf("11) *Dias da semana em que a sala é usada\n");
-        printf("12) *Períodos do dia em que a sala é usada\n");
         printf("0) *Cancelar\n");
         printf("---------------------------\n");
 
@@ -259,17 +257,54 @@ void alterarProfessor(Professor *professores, int* professoresCadastrados){
             case 10:
                 printf("\n\nA sala utilizada atualmente é a sala de número %d", professores[codigo].salaUsada);
 
-                scanf("%d", salaPretendida);
+                printf("Estas são as salas cadastradas no sistema: \n");
+                for(i=0; i<*qtdSalas; i++){
+                    printf("%d: %s\n", *salas[i].numero, salas[i].nome);
+                }
 
-                for
-                break;
+                printf("\n\nDigite o número da sala que você deseja utilizar\n");
+                scanf("%d", &salaPretendida);
 
-            case 11:
 
-                break;
+                do{
+                    if(salaPretendida < *qtdSalas || salaPretendida > *qtdSalas){
+                        pritnf("\n\nSala inexistente. Por favor, insira outro número de sala\n");
+                        scanf("%d", &salaPretendida);
+                        Status = 0;
+                    }else{
+                        for(i=0; salas[i].numero != salaConsultada; i++);
+                            printf("Estas sao as informacoes cadastradas na sala %d\n", salaConsultada);
+                            printf("Nome: %s\n", salas[i].nome);
 
-            case 12:
+                            if(salas[i].horario==1){
+                                printf("Horário: Período da Manhã (9:00 - 12:00)\n");
+                            } else {
 
+                                if(salas[i].horario==2){
+
+                                    printf("Horário: Período da Tarde (14:00 - 17:00)\n");
+
+                                } else {
+
+                                    if(salas[i].horario==3){
+                                        printf("Horário: Período da Noite (18:00 - 21:00)\n");
+                                    }
+                                }
+                            }
+
+                        pritnf("\n\nQual dos horários será utilizado?\n");
+                        scanf("%d", &horarioPretendido);
+
+                        for(i = 0; i < )
+                    }
+                }while(Status != 1);
+
+
+                
+                
+              
+
+                
                 break;
 
             case 0:
@@ -284,14 +319,75 @@ void alterarProfessor(Professor *professores, int* professoresCadastrados){
 
     free(opcao);
     free(codigo);
+    free(salaPretendida);
+    free(Status);
 
 }
 
 void excluirProfessor(Professor *professores, int* professoresCadastrados){
+    int codigo;
+    
+    printf("\n\nDigite o código do professor\n");
+    scanf("%d", &codigo);
 
+    if(codigo < *professoresCadastrados || codigo > *professoresCadastrados){
+        printf("\n\nNenhum professor cadastrado com esse código. Impossível de excluir\n");
+
+    }else{
+        *professores[codigo].codigoProfessor = 0;
+        (*professoresCadastrados)--;
+        if (*professoresCadastrados % 5 != 0 && *professoresCadastrados + 5 % 5 == 0)
+        {
+            professores = realloc(professores, (*professoresCadastrados) * sizeof(Professor));
+        }
+    }
+
+    free(codigo);
 
 }
 
 void consultarProfessor(Professor *professores, int* professoresCadastrados){
+    int codigo;
 
+    printf("\n\nInsira o código do professor que deseja\n");
+    scanf("%d", &codigo);
+
+     if(codigo < *professoresCadastrados || codigo > *professoresCadastrados){
+        printf("\n\nNenhum professor cadastrado com esse código. Impossível de consultar\n");
+    }else{
+
+        printf("\n\nO nome registrado é:");
+        fputs(professores[codigo].nome, stdout);
+
+        printf("\n\nA modalidade lecionada é a de código %d", professores[codigo].modalidadeLecionada);
+
+         printf("\n\nO local de nascimento está registrado como:");
+        fputs(professores[codigo].localDeNascimento, stdout);
+
+        printf("\n\nA data de nascimento está registrada como sendo");
+        fputs(professores[codigo].dataDeNascimento, stdout);
+
+        printf("\n\nO RG registrado é: %d", professores[codigo].RG);
+
+        if(professores[codigo].CPF == 0){
+            printf("\n\nNenhum CPF registrado\n");
+        }else{
+            printf("\n\nO CPF registrado é: %d");
+        }
+
+        if(professores[codigo].CNPJ == 0){
+            printf("\n\nNenhum CNPJ registrado\n");
+        }else{
+            printf("\n\nO CNPJ registrado é: %d");
+        }
+
+        printf("\n\nO endereço registrado é: ");
+        fputs(professores[codigo].endereco, stdout);
+
+        printf("\n\nO salário por aluno desse professor é de: R$ %2.f", professores[codigo].salarioPorAluno);
+
+        printf("\n\nA sala utilizada atualmente é a sala de número %d", professores[codigo].salaUsada);
+    }
+
+    free(codigo);
 }
