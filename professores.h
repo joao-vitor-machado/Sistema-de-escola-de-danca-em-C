@@ -7,8 +7,8 @@ typedef struct professores{
     int modalidadeLecionada;
     char localDeNascimento[255], dataDeNascimento[10];
     int RG;
-    int CPF = 0;
-    int CNPJ = 0;
+    int CPF;
+    int CNPJ;
     char endereco[255];
     float salarioPorAluno;
     int salaUsada;
