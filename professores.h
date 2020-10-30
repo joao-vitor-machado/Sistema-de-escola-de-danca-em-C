@@ -3,13 +3,13 @@
 
 typedef struct professores{
     int codigoProfessor;
-    char nome[100];
+    char nome[255];
     int modalidadeLecionada;
-    char localNascimento[100], dataDeNascimento[10];
+    char localDeNascimento[255], dataDeNascimento[10];
     int RG;
     int CPF = 0;
     int CNPJ = 0;
-    char endereco[100];
+    char endereco[255];
     float salarioPorAluno;
     int salaUsada;
     int diaSemana;
