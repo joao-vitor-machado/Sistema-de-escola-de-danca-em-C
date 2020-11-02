@@ -6,9 +6,9 @@
 #include "professores.h"
 #include "salas.h"
 #include "modalidades.h"
+#include "types.h"
 //#include "horarios.h"
 //#include "mensalidade.h"
-
 #define valorAcrescimoMemoria 5
 
 
@@ -22,10 +22,12 @@ void TelaMenuHorario();
 
 int ValidarCodigo();
 
+
+
 int main()
 {
     setlocale(LC_ALL, "");
-    int opcaoMenu, opcaoSubMenu, alunosCadastrados = 0, professoresCadastrados = 0, codigo = 0;
+    int opcaoMenu, opcaoSubMenu, alunosCadastrados = 0, professoresCadastrados = 0, codigo = 0, qtdSalas=0;
     Cliente *aluno;
     Professor *professores;
     Sala *salas;
@@ -40,6 +42,7 @@ int main()
     modalidades = (Modalidade *)malloc(5 * sizeof(Modalidade));
 
     TelaMenuPrincipal();
+    
     scanf("%d", &opcaoMenu);
     switch (opcaoMenu)
     {
@@ -71,13 +74,12 @@ int main()
     }
     case 2:
     {
-        TelaMenuProfessor();
+        TelaMenuProfessor(professores,&professoresCadastrados,salas,&qtdSalas,modalidades);
         scanf("%d", &opcaoSubMenu);
         break;
     }
     case 3:
     {
-        int qtdSalas = 0;
         TelaMenuSala();
         scanf("%d", &opcaoSubMenu);
         switch (opcaoSubMenu)
