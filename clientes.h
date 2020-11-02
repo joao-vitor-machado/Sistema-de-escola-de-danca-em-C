@@ -16,7 +16,7 @@ typedef struct
     int responsavel;
 } Cliente;
 
-void CadastrarCliente(Cliente *, int *,int*);
+void CadastrarCliente(Cliente *, int *);
 void AlterarCliente(Cliente *, int *);
 void ExcluirCliente(Cliente *, int *, int *);
 void ConsultarCliente(Cliente *, int *);

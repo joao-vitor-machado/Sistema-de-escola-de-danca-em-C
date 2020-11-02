@@ -131,7 +131,7 @@ int main()
     }
     default:
     {
-        printf("%Opção inválida!");
+        printf("%Opï¿½ï¿½o invï¿½lida!");
         break;
     }
     }
@@ -214,7 +214,7 @@ int ValidarCodigo()
         scanf("%d", &codigo);
 
         if (codigo == 0)
-            printf("Código digitado Inválido\nInsira um código válido: ");
+            printf("Cï¿½digo digitado Invï¿½lido\nInsira um cï¿½digo vï¿½lido: ");
 
     } while (codigo == 0);
 
