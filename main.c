@@ -27,14 +27,14 @@ int ValidarCodigo();
 int main()
 {
     setlocale(LC_ALL, "");
-    int opcaoMenu, opcaoSubMenu, alunosCadastrados = 0, professoresCadastrados = 0, codigo = 0, qtdSalas=0;
+    int opcaoMenu, opcaoSubMenu, alunosCadastrados = 0, professoresCadastrados = 0, codigo = 0, qtdSalas=0, i;
     Cliente *aluno;
     Professor *professores;
     Sala *salas;
     Modalidade *modalidades;
 
     aluno = (Cliente *)malloc(valorAcrescimoMemoria * sizeof(Cliente));
-    for(int i = 0; i < valorAcrescimoMemoria; i++)
+    for(i = 0; i < valorAcrescimoMemoria; i++)
     {
         aluno[i].codigo = 0;
     }
@@ -139,6 +139,8 @@ int main()
         break;
     }
     }
+    
+    return 0;
 }
 
 void TelaMenuPrincipal()
