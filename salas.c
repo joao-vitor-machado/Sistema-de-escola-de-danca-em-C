@@ -10,21 +10,21 @@ void cadastrarSala(Sala *salas, int *qtdSalas)
     }
 
     printf("Digite o nome da sala: \n");
-    fgets(salas.nome, 100, stdin);
+    fgets(salas->nome, 100, stdin);
     printf("Digite o numero da sala: \n");
-    scanf("%d", &salas.numero); 
+    scanf("%d", &salas->numero); 
     printf("Selecione o dia da semana que a sala sera utilizada: \n");
     printf("1- Domingo\n2- Segunda\n3- Terca\n4- Quarta\n5- Quinta\n6- Sexta\n7- Sabado\n");
-    scanf("%d", &salas.diaSemana);
+    scanf("%d", &salas->diaSemana);
     printf("Selecione a opcao de horario que a sala sera utilizada: \n");
     printf("1- Período da Manhã (9:00 - 12:00)\n2- Período da Tarde (14:00 - 17:00)\n3- Período da Noite (18:00 - 21:00)\n");
-    scanf("%d", &salas.horario);
+    scanf("%d", &salas->horario);
 
     for(i=0; i<3; i++){ //percorre as linhas (os horários da sala)
         for(j=0; j<7; j++){ //percorre as colunas (os dias da semana)
             salas->matrizHorarios[i][j]=0;
-            if(i==salas.horario-1 && j==salas.diaSemana-1)
-                salas.matrizHorarios[i][j]=1;
+            if(i==salas->horario-1 && j==salas->diaSemana-1)
+                salas->matrizHorarios[i][j]=1;
         }
     }
 }
@@ -73,7 +73,7 @@ void alterarSala(Sala *salas)
         scanf("%d", &salas[i].numero);
         break;
     default:
-        printf("Opcao invalida!"\n);
+        printf("Opcao invalida!\n");
         break;
     }
 }

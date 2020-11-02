@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include "clientes.h"
 
@@ -24,9 +25,7 @@ void CadastrarCliente(Cliente *aluno, int *alunosCadastrados)
             printf("---------------------------\n");
             printf("    Cadastro de Cliente");
             printf("\n---------------------------\n\n");
-            printf("Nome:\t\t");
-            fgets(aluno[tempIndex].nome, 255, stdin);
-            printf("\t\tCodigo do Aluno: ");
+            printf("Codigo do Aluno: ");
             do
             {
                 scanf("%d", &tempCod);
@@ -38,55 +37,58 @@ void CadastrarCliente(Cliente *aluno, int *alunosCadastrados)
                 }
                 else
                 {
-                    printf("\nCódigo inserido inválido!\nInsira um código válido: ");
+                    printf("\nCodigo inserido invalido!\nInsira um codigo valido: ");
                 }
             } while (tempCod == 0);
 
                 do
             {
-                printf("\nEm quantas modalidades você deseja se cadastrar?: ");
+                printf("\nEm quantas modalidades voce deseja se cadastrar?: ");
                 scanf("%d", &qntModalidades);
                 if (qntModalidades < 0)
-                    printf("insira um valor válido\n");
+                    printf("insira um valor valido\n");
             }
-            while (qntModalidades < 0)
+            while (qntModalidades < 0 || qntModalidades > 5)
                 ;
 
             aluno[tempIndex].modalidade = (int *)malloc(qntModalidades * sizeof(int));
-
+			int modTemp;
             for (int i = 1; i <= qntModalidades; i++)
             {
-                printf("\ncódigo da modalidade%d: ", i);
-                scanf("%d", aluno[tempIndex].modalidade[i - 1]);
+                printf("\ncodigo da modalidade %d: ", i);
+                modTemp = i - 1;
+                scanf("%d", &aluno[tempIndex].modalidade[modTemp]);
                 getchar();
             }
-
-            printf("\nIdade: \t\t");
-            scanf("%d", aluno[tempIndex].idade);
+            printf("Nome:");
+            fgets(aluno[tempIndex].nome, 255, stdin);
+            printf("Idade: ");
+            scanf("%d", &aluno[tempIndex].idade);
             getchar();
-            printf("Local de nascimento: ");
-            fgets(aluno[tempIndex].localDeNascimento, 255, stdin);
-            printf("\nEndereco: ");
+            printf("Endereco:");
             fgets(aluno[tempIndex].endereco, 255, stdin);
-            printf("\nValor da mensalidade: R$");
-            scanf("%d", aluno[tempIndex].valorMensalidade);
+            printf("Local de nascimento:");
+            fgets(aluno[tempIndex].localDeNascimento, 255, stdin);
+            
+            printf("Valor da mensalidade:");
+            scanf("%d", &aluno[tempIndex].valorMensalidade);
             getchar();
-            CalcularMensalidade(aluno, tempIndex, &qntModalidades);
+            CalcularMensalidade(&aluno[tempIndex], &qntModalidades);
 
-            printf("\nVencimento do Boleto: ");
-            fgets(aluno[tempIndex].dataVencimentoBoleto, 10, stdin);
+            printf("\nVencimento do Boleto:");
+            fgets(aluno[tempIndex].dataVencimentoBoleto, 11, stdin);
             if (aluno[tempIndex].idade < 18)
             {
-                printf("\n---------------------------\n");
+                printf("---------------------------\n");
                 printf("Dados do responsavel");
                 printf("\n---------------------------\n");
-                printf("Nome: ");
+                printf("Nome:\n");
                 fgets(aluno[tempIndex].nomeResponsavel, 255, stdin);
-                printf("\nRG: ");
-                fgets(aluno[tempIndex].RG, 15, stdin);
-                printf("\nCPF: ");
-                fgets(aluno[tempIndex].CPF, 11, stdin);
-                printf("\n---------------------------\n");
+                printf("RG:\n");
+                fgets(aluno[tempIndex].RG, 16, stdin);
+                printf("CPF:\n");
+                fgets(aluno[tempIndex].CPF, 12, stdin);
+                printf("---------------------------\n");
                 system("cls");
 
                 aluno[tempIndex].responsavel = 1;
@@ -94,17 +96,17 @@ void CadastrarCliente(Cliente *aluno, int *alunosCadastrados)
 
             else
             {
-                printf("\nRG: ");
-                fgets(aluno[tempIndex].RG, 15, stdin);
-                printf("\nCPF: ");
-                fgets(aluno[tempIndex].CPF, 11, stdin);
-                printf("\n---------------------------\n");
+                printf("\nRG:\n");
+                fgets(aluno[tempIndex].RG, 16, stdin);
+                printf("\nCPF:\n");
+                fgets(aluno[tempIndex].CPF, 12, stdin);
+                printf("---------------------------\n");
 
                 aluno[tempIndex].responsavel = 0;
             }
             system("cls");
             (*alunosCadastrados)++;
-            LimparEspacoVazio(aluno,tempIndex);
+            LimparEspacoVazio(&aluno[tempIndex]);
             sucesso = 1;
         }
         else
@@ -132,29 +134,30 @@ void AlterarCliente(Cliente *aluno, int *codigo)
 
     do
     {
-        printf("\nEm quantas modalidades você deseja se cadastrar?: ");
+        printf("\nEm quantas modalidades voce deseja se cadastrar?: ");
         scanf("%d", &qntModalidades);
         if (qntModalidades < 0)
             printf("insira um valor válido\n");
-    } while (qntModalidades < 0);
+    } while (qntModalidades < 0 ||qntModalidades > 5);
 
     aluno[indexAlterar].modalidade = (int *)malloc(qntModalidades * sizeof(int));
-
+	int modTemp;
     for (int i = 1; i <= qntModalidades; i++)
     {
-        printf("\ncódigo da modalidade%d: ", i);
-        scanf("%d", aluno[indexAlterar].modalidade[i - 1]);
+        printf("\ncodigo da modalidade%d: ", i);
+        modTemp = i - 1;
+        scanf("%d", aluno[indexAlterar].modalidade[modTemp]);
         getchar();
     }
-    printf("\nIdade: \t\t");
-    scanf("%d", aluno[indexAlterar].idade);
+    printf("\nIdade: ");
+    scanf("%d", &aluno[indexAlterar].idade);
     getchar();
     printf("Local de nascimento: ");
     fgets(aluno[indexAlterar].localDeNascimento, 255, stdin);
-    printf("\nValor da mensalidade: R$");
-    scanf("%d", aluno[indexAlterar].valorMensalidade);
+    printf("Valor da mensalidade:");
+    scanf("%d", &aluno[indexAlterar].valorMensalidade);
     getchar();
-    CalcularMensalidade(aluno, indexAlterar, &qntModalidades);
+    //CalcularMensalidade(aluno, indexAlterar, &qntModalidades);
     printf("\nVencimento do Boleto: ");
     fgets(aluno[indexAlterar].dataVencimentoBoleto, 10, stdin);
     printf("\n---------------------------\n");
@@ -172,7 +175,7 @@ void AlterarCliente(Cliente *aluno, int *codigo)
     printf("\nEndereco: ");
     fgets(aluno[indexAlterar].endereco, 255, stdin);
     printf("\n---------------------------\n");
-    LimparEspacoVazio(aluno,indexAlterar);
+    LimparEspacoVazio(&aluno[indexAlterar]);
     system("cls");
 }
 
@@ -182,7 +185,7 @@ void ExcluirCliente(Cliente *aluno, int *codigo, int *alunosCadastrados)
     int index = PesquisarCodigo(aluno, *codigo);
     printf("Exclusao do Cliente");
     printf("\n---------------------------\n");
-    printf("Você esta prestes a excluir o aluno: %s\t de código: %d", aluno[index].nome, aluno[index].codigo);
+    printf("Voce esta prestes a excluir o aluno: %s\t de codigo: %d", aluno[index].nome, aluno[index].codigo);
     printf("\n---------------------------\n\n");
     printf("Voce tem certeza que deseja excluir?s/n\n");
     scanf("%c", &op);
@@ -236,51 +239,51 @@ void ConsultarCliente(Cliente *aluno, int *codigo)
     }
 }
 
-void CalcularMensalidade(Cliente *aluno, int index, int *quantidadeDeModalidades)
+void CalcularMensalidade(Cliente *aluno, int *quantidadeDeModalidades)
 {
     if (*quantidadeDeModalidades >= 2)
     {
-        aluno[index].valorMensalidade -= (0.05 * aluno[index].valorMensalidade);
+        aluno->valorMensalidade -= (0.05 * aluno->valorMensalidade);
     }
 }
 
-void LimparEspacoVazio(Cliente *aluno, int index)
+void LimparEspacoVazio(Cliente *aluno)
 {
     int search;
-    for (search = 0; aluno[index].nome != '\n'; search++)
+    for (search = 0; aluno->nome[search] != '\n'; search++)
         ;
-    strcpy(aluno[index].nome,'\0');
+	aluno->nome[search]='\0';
 
-    for (search = 0; aluno[index].localDeNascimento != '\n'; search++)
+    for (search = 0; aluno->localDeNascimento[search] != '\n'; search++)
         ;
-            strcpy(aluno[index].localDeNascimento,'\0');
+            aluno->localDeNascimento[search]='\0';
     
 
-    for (search = 0; aluno[index].RG != '\n'; search++)
+    for (search = 0; aluno->RG[search] != '\n'; search++)
         ;
-        strcpy(aluno[index].RG,'\0');
+        aluno->RG[search]='\0';
     
 
-    for (search = 0; aluno[index].CPF != '\n'; search++)
+    for (search = 0; aluno->CPF[search] != '\n'; search++)
         ;
-        strcpy(aluno[index].CPF,'\0');
+        aluno->CPF[search]='\0';
     
 
-    for (search = 0; aluno[index].endereco != '\n'; search++)
+    for (search = 0; aluno->endereco[search] != '\n'; search++)
         ;
-        strcpy(aluno[index].endereco,'\0');
+    aluno->endereco[search]='\0' ;
     
 
-    for (search = 0; aluno[index].dataVencimentoBoleto != '\n'; search++)
+    for (search = 0; aluno->dataVencimentoBoleto[search] != '\n'; search++)
         ;
-        strcpy(aluno[index].dataVencimentoBoleto,'\0');
+        aluno->dataVencimentoBoleto[search]='\0';
     
 
-    if (aluno[index].responsavel == 1)
+    if (aluno->responsavel == 1)
     {
-        for (search = 0; aluno[index].nomeResponsavel != '\n'; search++)
+        for (search = 0; aluno->nomeResponsavel[search] != '\n'; search++)
             ;
-            strcpy(aluno[index].nomeResponsavel,'\0');
+            aluno->nomeResponsavel[search]='\0';
         
     }
 }

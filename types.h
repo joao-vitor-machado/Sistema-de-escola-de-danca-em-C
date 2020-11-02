@@ -3,16 +3,17 @@
 
 typedef struct
 {
-    char nome[255], nomeResponsavel[255];
+    char nome[255];
+	char nomeResponsavel[255];
     int codigo;
     int *modalidade;
     int idade;
     char localDeNascimento[255];
-    char RG[15];
-    char CPF[11];
+    char RG[16];
+    char CPF[12];
     char endereco[255];
     int valorMensalidade;
-    int dataVencimentoBoleto[10];
+    char dataVencimentoBoleto[11];
     int responsavel;
 } Cliente;
 
