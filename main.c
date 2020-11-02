@@ -6,13 +6,13 @@
 #include "professores.h"
 #include "salas.h"
 #include "modalidades.h"
+#include "types.h"
 //#include "horarios.h"
 //#include "mensalidade.h"
-
 #define valorAcrescimoMemoria 5
 
-void TelaPrincipal();
-int TelaMenuCliente();
+void TelaMenuPrincipal();
+int  TelaMenuCliente();
 void TelaMenuProfessor();
 void TelaMenuSala();
 void TelaMenuModalidade();
@@ -20,10 +20,12 @@ void TelaMenuHorario();
 
 int ValidarCodigo();
 
+
+
 int main()
 {
     setlocale(LC_ALL, "");
-    int opcaoMenu, opcaoSubMenu, alunosCadastrados = 0, professoresCadastrados = 0, codigo = 0;
+    int opcaoMenu, opcaoSubMenu, alunosCadastrados = 0, professoresCadastrados = 0, codigo = 0, qtdSalas=0;
     Cliente *aluno;
     Professor *professores;
     Sala *salas;
@@ -38,6 +40,7 @@ int main()
     modalidades = (Modalidade *)malloc(5 * sizeof(Modalidade));
 
     TelaMenuPrincipal();
+    
     scanf("%d", &opcaoMenu);
     switch (opcaoMenu)
     {
@@ -69,13 +72,12 @@ int main()
     }
     case 2:
     {
-        TelaMenuProfessor();
+        TelaMenuProfessor(professores,&professoresCadastrados,salas,&qtdSalas,modalidades);
         scanf("%d", &opcaoSubMenu);
         break;
     }
     case 3:
     {
-        int qtdSalas = 0;
         TelaMenuSala();
         scanf("%d", &opcaoSubMenu);
         switch (opcaoSubMenu)
@@ -131,7 +133,7 @@ int main()
     }
     default:
     {
-        printf("%Opï¿½ï¿½o invï¿½lida!");
+        printf("%Opção inválida!");
         break;
     }
     }
@@ -214,7 +216,7 @@ int ValidarCodigo()
         scanf("%d", &codigo);
 
         if (codigo == 0)
-            printf("Cï¿½digo digitado Invï¿½lido\nInsira um cï¿½digo vï¿½lido: ");
+            printf("Código digitado Inválido\nInsira um código válido: ");
 
     } while (codigo == 0);
 

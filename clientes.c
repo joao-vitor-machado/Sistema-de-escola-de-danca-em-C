@@ -38,23 +38,25 @@ void CadastrarCliente(Cliente *aluno, int *alunosCadastrados)
                 }
                 else
                 {
-                    printf("\nCÃ³digo inserido invÃ¡lido!\nInsira um cÃ³digo vÃ¡lido: ");
+                    printf("\nCódigo inserido inválido!\nInsira um código válido: ");
                 }
             } while (tempCod == 0);
 
-            do
+                do
             {
-                printf("\nEm quantas modalidades vocÃª deseja se cadastrar?: ");
+                printf("\nEm quantas modalidades você deseja se cadastrar?: ");
                 scanf("%d", &qntModalidades);
                 if (qntModalidades < 0)
-                    printf("insira um valor vÃ¡lido\n");
-            } while (qntModalidades < 0);
+                    printf("insira um valor válido\n");
+            }
+            while (qntModalidades < 0)
+                ;
 
             aluno[tempIndex].modalidade = (int *)malloc(qntModalidades * sizeof(int));
 
             for (int i = 1; i <= qntModalidades; i++)
             {
-                printf("\ncÃ³digo da modalidade%d: ", i);
+                printf("\ncódigo da modalidade%d: ", i);
                 scanf("%d", aluno[tempIndex].modalidade[i - 1]);
                 getchar();
             }
@@ -102,7 +104,7 @@ void CadastrarCliente(Cliente *aluno, int *alunosCadastrados)
             }
             system("cls");
             (*alunosCadastrados)++;
-            LimparEspacoVazio(aluno, tempIndex);
+            LimparEspacoVazio(aluno,tempIndex);
             sucesso = 1;
         }
         else
@@ -117,7 +119,7 @@ void CadastrarCliente(Cliente *aluno, int *alunosCadastrados)
 void AlterarCliente(Cliente *aluno, int *codigo)
 {
     int qntModalidades = 1;
-    int indexAlterar = PesquisarCodigo(aluno, *codigo);
+    int indexAlterar = PesquisarCodigo(aluno,*codigo);
     free(aluno[indexAlterar].modalidade);
 
     printf("\n---------------------------\n");
@@ -130,17 +132,17 @@ void AlterarCliente(Cliente *aluno, int *codigo)
 
     do
     {
-        printf("\nEm quantas modalidades vocÃª deseja se cadastrar?: ");
+        printf("\nEm quantas modalidades você deseja se cadastrar?: ");
         scanf("%d", &qntModalidades);
         if (qntModalidades < 0)
-            printf("insira um valor vÃ¡lido\n");
+            printf("insira um valor válido\n");
     } while (qntModalidades < 0);
 
     aluno[indexAlterar].modalidade = (int *)malloc(qntModalidades * sizeof(int));
 
     for (int i = 1; i <= qntModalidades; i++)
     {
-        printf("\ncÃ³digo da modalidade%d: ", i);
+        printf("\ncódigo da modalidade%d: ", i);
         scanf("%d", aluno[indexAlterar].modalidade[i - 1]);
         getchar();
     }
@@ -170,7 +172,7 @@ void AlterarCliente(Cliente *aluno, int *codigo)
     printf("\nEndereco: ");
     fgets(aluno[indexAlterar].endereco, 255, stdin);
     printf("\n---------------------------\n");
-    LimparEspacoVazio(aluno, indexAlterar);
+    LimparEspacoVazio(aluno,indexAlterar);
     system("cls");
 }
 
@@ -180,7 +182,7 @@ void ExcluirCliente(Cliente *aluno, int *codigo, int *alunosCadastrados)
     int index = PesquisarCodigo(aluno, *codigo);
     printf("Exclusao do Cliente");
     printf("\n---------------------------\n");
-    printf("VocÃª esta prestes a excluir o aluno: %s\t de cÃ³digo: %d", aluno[index].nome, aluno[index].codigo);
+    printf("Você esta prestes a excluir o aluno: %s\t de código: %d", aluno[index].nome, aluno[index].codigo);
     printf("\n---------------------------\n\n");
     printf("Voce tem certeza que deseja excluir?s/n\n");
     scanf("%c", &op);
@@ -210,18 +212,17 @@ void ConsultarCliente(Cliente *aluno, int *codigo)
         printf("Nome: %s\t\t", aluno[index].nome);
         printf("\t\tCodigo do Aluno: %d", *codigo);
         printf("\nModalidades: ");
-        for (int i = 0; i < ((int)(sizeof(aluno[index].modalidade)) / sizeof(aluno[index].modalidade[0])); i++)
+        for(int i=0; i < ((int)( sizeof(aluno[index].modalidade)) / sizeof(aluno[index].modalidade[0])); i++)
         {
             printf("%s\n", aluno[index].modalidade[i]);
         }
-        printf("\nIdade: %d\t\t", aluno[index].idade);
-        printf("Local de nascimento: %s", aluno[index].localDeNascimento);
-        printf("\nValor da mensalidade: R$%d", aluno[index].valorMensalidade);
-        printf("\nVencimento do Boleto: %s", aluno[index].dataVencimentoBoleto);
+        printf("\nIdade: %d\t\t",aluno[index].idade);
+        printf("Local de nascimento: %s",aluno[index].localDeNascimento);
+        printf("\nValor da mensalidade: R$%d",aluno[index].valorMensalidade);
+        printf("\nVencimento do Boleto: %s",aluno[index].dataVencimentoBoleto);
         printf("\n---------------------------\n");
 
-        if (aluno[index].responsavel == 1)
-        {
+        if (aluno[index].responsavel == 1){
             printf("Dados do responsavel");
             printf("\n---------------------------\n");
             printf("Nome: %s", aluno[index].nomeResponsavel);
@@ -248,33 +249,39 @@ void LimparEspacoVazio(Cliente *aluno, int index)
     int search;
     for (search = 0; aluno[index].nome != '\n'; search++)
         ;
-    strcpy(aluno[index].nome, '\0');
+    strcpy(aluno[index].nome,'\0');
 
     for (search = 0; aluno[index].localDeNascimento != '\n'; search++)
         ;
-    strcpy(aluno[index].localDeNascimento, '\0');
+            strcpy(aluno[index].localDeNascimento,'\0');
+    
 
     for (search = 0; aluno[index].RG != '\n'; search++)
         ;
-    strcpy(aluno[index].RG, '\0');
+        strcpy(aluno[index].RG,'\0');
+    
 
     for (search = 0; aluno[index].CPF != '\n'; search++)
         ;
-    strcpy(aluno[index].CPF, '\0');
+        strcpy(aluno[index].CPF,'\0');
+    
 
     for (search = 0; aluno[index].endereco != '\n'; search++)
         ;
-    strcpy(aluno[index].endereco, '\0');
+        strcpy(aluno[index].endereco,'\0');
+    
 
     for (search = 0; aluno[index].dataVencimentoBoleto != '\n'; search++)
         ;
-    strcpy(aluno[index].dataVencimentoBoleto, '\0');
+        strcpy(aluno[index].dataVencimentoBoleto,'\0');
+    
 
     if (aluno[index].responsavel == 1)
     {
         for (search = 0; aluno[index].nomeResponsavel != '\n'; search++)
             ;
-        strcpy(aluno[index].nomeResponsavel, '\0');
+            strcpy(aluno[index].nomeResponsavel,'\0');
+        
     }
 }
 
@@ -288,7 +295,7 @@ int PesquisarCodigo(Cliente *aluno, int codigo)
     }
     else
     {
-        printf("CÃ³digo nÃ£o encontrado\n");
+        printf("Código não encontrado\n");
         return 0;
     }
 }
