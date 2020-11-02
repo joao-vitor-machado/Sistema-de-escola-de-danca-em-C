@@ -3,9 +3,9 @@
 #include "types.h"
 
 
-void TelaMenuProfessor(Professor *, int *, Sala *, int *, Modalidade *);
-void cadastrarProfessor(Professor *, int *, Sala *, int *, int *, Modalidade *);
-void alterarInfoProfessor(Professor *, int *, Sala *, int *, int *, Modalidade *);
+void TelaMenuProfessor();
+void cadastrarProfessor(Professor *, int *, Sala *, int *, Modalidade *, int *);
+void alterarInfoProfessor(Professor *, int *, Sala *, int *, int *, Modalidade *, int *);
 void exclusirProfessor(Professor *, int *);
 void consultarProfessor(Professor *, int *);
 

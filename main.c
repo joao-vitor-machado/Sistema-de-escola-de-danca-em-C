@@ -27,7 +27,7 @@ int ValidarCodigo();
 int main()
 {
     setlocale(LC_ALL, "");
-    int opcaoMenu, opcaoSubMenu, alunosCadastrados = 0, professoresCadastrados = 0, codigo = 0, qtdSalas=0, i;
+    int opcaoMenu, opcaoSubMenu, alunosCadastrados = 0, professoresCadastrados = 0, codigo = 0, qtdSalas=0, qtdModalidades = 0, i;
     Cliente *aluno;
     Professor *professores;
     Sala *salas;
@@ -40,6 +40,10 @@ int main()
     }
     salas = (Sala *)malloc(5 * sizeof(Sala));
     modalidades = (Modalidade *)malloc(5 * sizeof(Modalidade));
+    
+    professores = (Professor *)malloc(sizeof(Professor));
+    
+    
 
     TelaMenuPrincipal();
     
@@ -74,8 +78,29 @@ int main()
     }
     case 2:
     {
-        TelaMenuProfessor(professores,&professoresCadastrados,salas,&qtdSalas,modalidades);
+        TelaMenuProfessor();
         scanf("%d", &opcaoSubMenu);
+        switch (opcaoSubMenu)
+        {
+        case 1:
+            cadastrarProfessor(professores, &professoresCadastrados, salas, &qtdSalas, modalidades, &qtdModalidades);
+            break;
+
+        case 2:
+            consultarProfessor(professores, &professoresCadastrados);
+            break;
+
+        case 3:
+            alterarProfessor(professores, &professoresCadastrados, salas, &qtdSalas, modalidades, &qtdModalidades);
+            break;
+
+        case 4:
+            excluirProfessor(professores, &professoresCadastrados);
+            break;
+
+        case 0:
+            break;
+        }
         break;
     }
     case 3:
@@ -107,7 +132,7 @@ int main()
     }
     case 4:
     {
-        int qtdModalidades = 0;
+
         TelaMenuModalidade();
         scanf("%d", &opcaoSubMenu);
         switch (opcaoSubMenu)

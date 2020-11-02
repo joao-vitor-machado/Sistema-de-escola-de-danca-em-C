@@ -5,13 +5,8 @@
 #include "modalidades.h"
 #include "types.h"
 
-void TelaMenuProfessor(Professor *professores, int *professoresCadastrados, Sala *salas, int *qtdSalas, Modalidade *modalidades)
+void TelaMenuProfessor()
 {
-
-    int opcao;
-
-    do
-    {
 
         printf("---------------------------\n");
         printf("    Menu Professores\n");
@@ -23,40 +18,16 @@ void TelaMenuProfessor(Professor *professores, int *professoresCadastrados, Sala
         printf("0) *Cancelar\n");
         printf("---------------------------\n");
 
-        scanf("%d", &opcao);
-
-        switch (opcao)
-        {
-        case 1:
-            cadastrarProfessor(professores, &professoresCadastrados, salas, *qtdSalas);
-            break;
-
-        case 2:
-            consultarProfessor(professores, &professoresCadastrados);
-            break;
-
-        case 3:
-            alterarProfessor(professores, &professoresCadastrados, salas, *qtdSalas);
-            break;
-
-        case 4:
-            excluirProfessor(professores, *professoresCadastrados);
-            break;
-
-        case 0:
-            break;
-        }
-    } while (opcao != 0);
 }
 
-void cadastrarProfessor(Professor *professores, int *professoresCadastrados, Sala *salas, int *qtdSalas)
+void cadastrarProfessor(Professor *professores, int *professoresCadastrados, Sala *salas, int *qtdSalas, Modalidade *modalidades, int *qtdModalidades)
 {
 
-    int opcao, numHorarios, i;
+    int numHorarios, i, opcao;
 
-    professoresCadastrados += 1;
+    *professoresCadastrados += 1;
 
-    professores[*professoresCadastrados].codigoProfessor = professoresCadastrados;
+    professores[*professoresCadastrados].codigoProfessor = *professoresCadastrados;
 
     printf("Digite o nome do professor que será cadastrado\n");
     fgets(professores[*professoresCadastrados].nome, 255, stdin);
@@ -141,14 +112,14 @@ void cadastrarProfessor(Professor *professores, int *professoresCadastrados, Sal
 
     printf("\nCadastro encerrado\n\n");
 
-    free(opcao);
-    free(i);
 }
 
-void alterarProfessor(Professor *professores, int *professoresCadastrados, Sala *salas, int *qtdSalas)
+void alterarProfessor(Professor *professores, int *professoresCadastrados, Sala *salas, int *qtdSalas, Modalidade *modalidades, int *qtdModalidades)
 {
     int opcao = 1, codigo, salaPretendida, Status, modalidadePretendida, i, diaPretendido, periodoPretendido, codigoSala;
-
+    
+    
+    
     printf("\nQual o código do professor que deseja alterar>\n");
     scanf("%d", &codigo);
 
@@ -185,7 +156,7 @@ void alterarProfessor(Professor *professores, int *professoresCadastrados, Sala 
         case 2:
             printf("\n\nA modalidade lecionada é a de código %d", professores[codigo].modalidadeLecionada);
 
-            printf("\n\nQual o código da modalidade que será lecionada a partir de hoje?\n"); // ARRUMAR ISSO AQUI
+            printf("\n\nQual o código da modalidade que será lecionada a partir de hoje?\n");
             scanf("%d", &modalidadePretendida);
 
             for (i = 0; i < *qtdModalidades; i++)
@@ -274,7 +245,7 @@ void alterarProfessor(Professor *professores, int *professoresCadastrados, Sala 
             printf("Estas são as salas cadastradas no sistema: \n");
             for (i = 0; i < *qtdSalas; i++)
             {
-                printf("%d: %s\n", *salas[i].numero, salas[i].nome);
+                printf("%d: %s\n", salas[i].numero, salas[i].nome);
             }
 
             do
@@ -344,15 +315,7 @@ void alterarProfessor(Professor *professores, int *professoresCadastrados, Sala 
             printf("\nNenhuma das opções selecionadas. Por favor, selecione uma opção válida\n");
         }
     }
-    free(opcao);
-    free(codigo);
-    free(salaPretendida);
-    free(Status);
-    free(modalidadePretendida);
-    free(i);
-    free(diaPretendido);
-    free(periodoPretendido);
-    free(codigoSala);
+    
 }
 
 void excluirProfessor(Professor *professores, int *professoresCadastrados)
@@ -368,7 +331,7 @@ void excluirProfessor(Professor *professores, int *professoresCadastrados)
     }
     else
     {
-        *professores[codigo].codigoProfessor = 0;
+        professores[codigo].codigoProfessor = 0;
         (*professoresCadastrados)--;
         if (*professoresCadastrados % 5 != 0 && *professoresCadastrados + 5 % 5 == 0)
         {
@@ -376,7 +339,7 @@ void excluirProfessor(Professor *professores, int *professoresCadastrados)
         }
     }
 
-    free(codigo);
+  
 }
 
 void consultarProfessor(Professor *professores, int *professoresCadastrados)
@@ -432,5 +395,5 @@ void consultarProfessor(Professor *professores, int *professoresCadastrados)
         printf("\n\nA sala utilizada atualmente é a sala de número %d", professores[codigo].salaUsada);
     }
 
-    free(codigo);
+  
 }
