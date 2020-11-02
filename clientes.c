@@ -1,21 +1,22 @@
 #include <stdio.h>
+#include <string.h>
 #include "clientes.h"
 
-void CadastrarCliente(Cliente *aluno, int *index, int *alunosCadastrados)
+void CadastrarCliente(Cliente *aluno, int *alunosCadastrados)
 {
     int tempCod, sucesso = 0, tempIndex;
     int qntModalidades = 1;
 
     if (*alunosCadastrados % 5 == 0)
     {
-        alunos = realloc(alunos, (*alunosCadastrados + 5) * sizeof(Cliente));
+        aluno = realloc(aluno, (*alunosCadastrados + 5) * sizeof(Cliente));
         for (int i = *alunosCadastrados; i < *alunosCadastrados + 5; i++)
         {
             aluno[i].codigo = 0;
         }
     }
 
-    tempIndex = *index;
+    tempIndex = *alunosCadastrados;
     do
     {
         if (aluno[tempIndex].codigo == 0)
@@ -39,7 +40,7 @@ void CadastrarCliente(Cliente *aluno, int *index, int *alunosCadastrados)
                 {
                     printf("\nCódigo inserido inválido!\nInsira um código válido: ");
                 }
-            } while (tempCod == 0)
+            } while (tempCod == 0);
 
                 do
             {
@@ -118,7 +119,7 @@ void CadastrarCliente(Cliente *aluno, int *index, int *alunosCadastrados)
 void AlterarCliente(Cliente *aluno, int *codigo)
 {
     int qntModalidades = 1;
-    int indexAlterar = PesquisarCodigo(*codigo);
+    int indexAlterar = PesquisarCodigo(aluno,*codigo);
     free(aluno[indexAlterar].modalidade);
 
     printf("\n---------------------------\n");
@@ -127,7 +128,7 @@ void AlterarCliente(Cliente *aluno, int *codigo)
     printf("Voce esta alterando o aluno: %s", aluno[indexAlterar].nome);
     printf("\n---------------------------\n\n");
     printf("Nome: %s\t\t");
-    fgets(aluno[tempIndex].nome, 255, stdin);
+    fgets(aluno[indexAlterar].nome, 255, stdin);
 
     do
     {
@@ -178,7 +179,7 @@ void AlterarCliente(Cliente *aluno, int *codigo)
 void ExcluirCliente(Cliente *aluno, int *codigo, int *alunosCadastrados)
 {
     char op;
-    int index = PesquisarCodigo(*codigo);
+    int index = PesquisarCodigo(aluno, *codigo);
     printf("Exclusao do Cliente");
     printf("\n---------------------------\n");
     printf("Você esta prestes a excluir o aluno: %s\t de código: %d", aluno[index].nome, aluno[index].codigo);
@@ -193,7 +194,7 @@ void ExcluirCliente(Cliente *aluno, int *codigo, int *alunosCadastrados)
         (*alunosCadastrados)--;
         if (*alunosCadastrados % 5 != 0 && *alunosCadastrados + 5 % 5 == 0)
         {
-            alunos = realloc(alunos, (*alunosCadastrados) * sizeof(Cliente));
+            aluno = realloc(aluno, (*alunosCadastrados) * sizeof(Cliente));
         }
     }
 }
@@ -211,7 +212,7 @@ void ConsultarCliente(Cliente *aluno, int *codigo)
         printf("Nome: %s\t\t", aluno[index].nome);
         printf("\t\tCodigo do Aluno: %d", *codigo);
         printf("\nModalidades: ");
-        for(int i=0; i < ((int)( sizeof(array) / sizeof(aluno[index].modalidade[0])); i++)
+        for(int i=0; i < ((int)( sizeof(aluno[index].modalidade)) / sizeof(aluno[index].modalidade[0])); i++)
         {
             printf("%s\n", aluno[index].modalidade[i]);
         }
@@ -229,7 +230,7 @@ void ConsultarCliente(Cliente *aluno, int *codigo)
 
         printf("\nRG: %s", aluno[index].RG);
         printf("\nCPF: %s", aluno[index].CPF);
-        printf("\nEndereco: %s", aluno[index].) endereco;
+        printf("\nEndereco: %s", aluno[index].endereco);
         printf("\n---------------------------\n");
         system("cls");
     }
@@ -248,33 +249,39 @@ void LimparEspacoVazio(Cliente *aluno, int index)
     int search;
     for (search = 0; aluno[index].nome != '\n'; search++)
         ;
-    aluno[index].nome = '\0';
+    strcpy(aluno[index].nome,'\0');
 
     for (search = 0; aluno[index].localDeNascimento != '\n'; search++)
         ;
-    aluno[index].localDeNascimento = '\0';
+            strcpy(aluno[index].localDeNascimento,'\0');
+    
 
     for (search = 0; aluno[index].RG != '\n'; search++)
         ;
-    aluno[index].RG = '\0';
+        strcpy(aluno[index].RG,'\0');
+    
 
     for (search = 0; aluno[index].CPF != '\n'; search++)
         ;
-    aluno[index].CPF = '\0';
+        strcpy(aluno[index].CPF,'\0');
+    
 
     for (search = 0; aluno[index].endereco != '\n'; search++)
         ;
-    aluno[index].endereco = '\0';
+        strcpy(aluno[index].endereco,'\0');
+    
 
     for (search = 0; aluno[index].dataVencimentoBoleto != '\n'; search++)
         ;
-    aluno[index].dataVencimentoBoleto = '\0';
+        strcpy(aluno[index].dataVencimentoBoleto,'\0');
+    
 
     if (aluno[index].responsavel == 1)
     {
         for (search = 0; aluno[index].nomeResponsavel != '\n'; search++)
             ;
-        aluno[index].nomeResponsavel = '\0';
+            strcpy(aluno[index].nomeResponsavel,'\0');
+        
     }
 }
 

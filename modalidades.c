@@ -8,24 +8,24 @@ void cadastrarModalidade(Modalidade *modalidades, int *qtdModalidades){
     }
 
     printf("Digite o nome da modalidade: \n");
-    fgets(modalidades.nome, 100, stdin);
+    fgets(modalidades->nome, 100, stdin);
     do{
         printf("Digite o codigo da modalidade: \n");
-        scanf("%d", &modalidades.codigo);
+        scanf("%d", &modalidades->codigo);
         printf("Codigo invalido. Digite um codigo valido!\n");
-    } while (modalidades.codigo == 0);
+    } while (modalidades->codigo == 0);
     printf("Digite uma descricao para a modalidade: \n");
-    fgets(modalidades.descModalidade, 200, stdin);
+    fgets(modalidades->descModalidade, 200, stdin);
     printf("Digite uma descricao para os materiais necessarios: \n");
-    fgets(modalidades.descMateriais, 200, stdin);
+    fgets(modalidades->descMateriais, 200, stdin);
     printf("Digite o valor da mensalidade: \n");
-    scanf("%f", &modalidades.valorMensalidade);
+    scanf("%f", &modalidades->valorMensalidade);
     printf("Digite a idade minima para fazer esta modalidade: \n");
-    scanf("%d", &modalidades.idade);
+    scanf("%d", &modalidades->idade);
     printf("Digite o nome do professor que lecionará a modalidade: \n");
-    fgets(modalidades.nomeProfessor, 100, stdin);
+    fgets(modalidades->nomeProfessor, 100, stdin);
     printf("Digite o numero da sala a ser utilizada: \n");
-    scanf("%d", &modalidades.sala);
+    scanf("%d", &modalidades->sala);
 
 }
 
@@ -93,7 +93,7 @@ void alterarModalidade(Modalidade *modalidades){
         scanf("%d", &modalidades[i].sala);
         break;
     default:
-        printf("Opcao invalida!"\n);
+        printf("Opcao invalida!\n");
         break;
     }
 }

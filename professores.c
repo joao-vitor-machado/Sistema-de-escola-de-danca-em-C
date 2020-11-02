@@ -1,64 +1,67 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "professores.h"
+#include "salas.h"
+#include "modalidades.h"
+#include "types.h"
 
-void TelaMenuProfessor()
+void TelaMenuProfessor(Professor *professores, int *professoresCadastrados, Sala *salas, int *qtdSalas, Modalidade *modalidades)
 {
 
     int opcao;
 
-    do{
+    do
+    {
 
-    system("cls");
+        printf("---------------------------\n");
+        printf("    Menu Professores\n");
+        printf("---------------------------\n");
+        printf("1) *Cadastrar Professores\n");
+        printf("2) *Consulta de Professores\n");
+        printf("3) *Alteracao de Professores\n");
+        printf("4) *Exclusao de Professores\n");
+        printf("0) *Cancelar\n");
+        printf("---------------------------\n");
 
-    printf("---------------------------\n");
-    printf("    Menu Professores\n");
-    printf("---------------------------\n");
-    printf("1) *Cadastrar Professores\n");
-    printf("2) *Consulta de Professores\n");
-    printf("3) *Alteracao de Professores\n");
-    printf("4) *Exclusao de Professores\n");
-    printf("0) *Cancelar\n");
-    printf("---------------------------\n");
+        scanf("%d", &opcao);
 
-    scanf("%d", &opcao);
-
-
-    switch (opcao){
+        switch (opcao)
+        {
         case 1:
-            cadastrarProfessor(Professor* professores, &professoresCadastrados, Sala*);
+            cadastrarProfessor(professores, &professoresCadastrados, salas, *qtdSalas);
             break;
-        
-        case 2: 
-            consultarProfessor(Professor* professores, &professoresCadastrados);
+
+        case 2:
+            consultarProfessor(professores, &professoresCadastrados);
             break;
 
         case 3:
-            alterarProfessor(Professor* professores, &professoresCadastrados, Sala*);
+            alterarProfessor(professores, &professoresCadastrados, salas, *qtdSalas);
             break;
 
         case 4:
-            excluirProfessor(Professor* professores, int* professoresCadastrados);
+            excluirProfessor(professores, *professoresCadastrados);
             break;
 
         case 0:
             break;
-    }
-    }while(opcao != 0);
-
-
+        }
+    } while (opcao != 0);
 }
 
+void cadastrarProfessor(Professor *professores, int *professoresCadastrados, Sala *salas, int *qtdSalas)
+{
 
-void cadastrarProfessor(Professor* professores, int* professoresCadastrados, Sala* salas){
+    int opcao, numHorarios, i;
 
-    int opcao, numHorarios;
-
-    professoresCadastrados+=1;
+    professoresCadastrados += 1;
 
     professores[*professoresCadastrados].codigoProfessor = professoresCadastrados;
 
-    printf("Digite o nome do professor que ser√° cadastrado\n");
+    printf("Digite o nome do professor que ser· cadastrado\n");
     fgets(professores[*professoresCadastrados].nome, 255, stdin);
 
-    printf("\nDigite o c√≥digo para a modalidade lecionada\n");
+    printf("\nDigite o cÛdigo para a modalidade lecionada\n");
     scanf("%d", professores[*professoresCadastrados].modalidadeLecionada);
 
     printf("\nDigite a data de nascimento. Exemplo: 00/00/0000\n");
@@ -74,73 +77,83 @@ void cadastrarProfessor(Professor* professores, int* professoresCadastrados, Sal
     switch (opcao)
     {
     case 1:
-       printf("\nDigite o CPF\n");
-       scanf("%d", professores[*professoresCadastrados].CPF);
+        printf("\nDigite o CPF\n");
+        scanf("%d", professores[*professoresCadastrados].CPF);
         break;
     case 2:
         printf("\nDigite o CNPJ\n");
         scanf("%d", professores[*professoresCadastrados].CNPJ);
         break;
-    
+
     default:
         printf("\nDigite o CPF\n");
         scanf("%d", professores[*professoresCadastrados].CPF);
         break;
     }
 
-    printf("\nDigite o endere√ßo da resid√™ncia\n");
+    printf("\nDigite o endereÁo da residÍncia\n");
     fgets(professores[*professoresCadastrados].endereco, 255, stdin);
 
-    printf("\nDigite o sal√°rio por aluno\n");
+    printf("\nDigite o sal·rio por aluno\n");
     scanf("%f", professores[*professoresCadastrados].salarioPorAluno);
 
-    printf("Estas s√£o as salas cadastradas no sistema: \n");//Mostra todas as salas que existem
-    for(i=0; i<*qtdSalas; i++){
+    printf("Estas s„o as salas cadastradas no sistema: \n"); //Mostra todas as salas que existem
+    for (i = 0; i < *qtdSalas; i++)
+    {
         printf("%d: %s\n", salas[i].numero, salas[i].nome);
-    }//end
+    } //end
 
-    printf("\nDigite o n√∫mero da sala que ser√° usada por ele(a)\n");
+    printf("\nDigite o n˙mero da sala que ser· usada por ele(a)\n");
     scanf("%d", professores[*professoresCadastrados].salaUsada);
 
-    for(i=0; salas[i].numero != professores[*professoresCadastrados].salaUsada; i++);
+    for (i = 0; salas[i].numero != professores[*professoresCadastrados].salaUsada; i++)
+        ;
     printf("Estas sao as informacoes cadastradas na sala %d\n", professores[*professoresCadastrados].salaUsada);
     printf("Nome: %s\n", salas[i].nome);
-    if(salas[i].horario==1){
-        printf("Hor√°rio: Per√≠odo da Manh√£ (9:00 - 12:00)\n");
-    } else {
-        if(salas[i].horario==2){
-            printf("Hor√°rio: Per√≠odo da Tarde (14:00 - 17:00)\n");
-        } else {
-            if(salas[i].horario==3){
-                printf("Hor√°rio: Per√≠odo da Noite (18:00 - 21:00)\n");
+    if (salas[i].horario == 1)
+    {
+        printf("Hor·rio: PerÌodo da Manh„ (9:00 - 12:00)\n");
+    }
+    else
+    {
+        if (salas[i].horario == 2)
+        {
+            printf("Hor·rio: PerÌodo da Tarde (14:00 - 17:00)\n");
+        }
+        else
+        {
+            if (salas[i].horario == 3)
+            {
+                printf("Hor·rio: PerÌodo da Noite (18:00 - 21:00)\n");
             }
         }
     }
 
-    printf("Digite o n√∫mero de hor√°rios que ser√£o usados dessa sala\n");
+    printf("Digite o n˙mero de hor·rios que ser„o usados dessa sala\n");
     scanf("%d", &numHorarios);
 
-    printf("\nDigite o(s) hor√°rios de acordo com sua linha e coluna (linha = per√≠odo, coluna = dia) separados por espa√ßo (para linha e coluna) e enter (para outro dia)\n");
+    printf("\nDigite o(s) hor·rios de acordo com sua linha e coluna (linha = perÌodo, coluna = dia) separados por espaÁo (para linha e coluna) e enter (para outro dia)\n");
 
-    for(i = 0; i < numHorarios; i++){
+    for (i = 0; i < numHorarios; i++)
+    {
         scanf("%d %d", professores[*professoresCadastrados].periodoDia, professores[*professoresCadastrados].diaSemana);
     }
 
     printf("\nCadastro encerrado\n\n");
 
     free(opcao);
-
+    free(i);
 }
 
-void alterarProfessor(Professor *professores, int* professoresCadastrados, Sala* salas){
-    int opcao = 1, codigo, salaPretendida, Status, modalidadePretendida, i, diaPretendido, periodoPretendido;
+void alterarProfessor(Professor *professores, int *professoresCadastrados, Sala *salas, int *qtdSalas)
+{
+    int opcao = 1, codigo, salaPretendida, Status, modalidadePretendida, i, diaPretendido, periodoPretendido, codigoSala;
 
-
-    printf("\nQual o c√≥digo do professor que deseja alterar>\n");
+    printf("\nQual o cÛdigo do professor que deseja alterar>\n");
     scanf("%d", &codigo);
 
-
-    while(opcao != 0){
+    while (opcao != 0)
+    {
         printf("---------------------------\n");
         printf("    O que deseja alterar?\n");
         printf("---------------------------\n");
@@ -151,174 +164,185 @@ void alterarProfessor(Professor *professores, int* professoresCadastrados, Sala*
         printf("5) *RG\n");
         printf("6) *CPF\n");
         printf("7) *CNPJ\n");
-        printf("8) *Endere√ßo\n");
+        printf("8) *EndereÁo\n");
         printf("9) *Salario por aluno\n");
         printf("10) *Sala usada\n");
         printf("0) *Cancelar\n");
         printf("---------------------------\n");
 
         scanf("%d", &opcao);
-        
-        switch(opcao){
-            case 1:
-                printf("\n\nO nome registrado √©:");
-                fputs(professores[codigo].nome, stdout);
 
-                printf("\n\nQual o novo nome?\n");
-                fgets(professores[codigo].nome, 255, stdin);
-                break;
+        switch (opcao)
+        {
+        case 1:
+            printf("\n\nO nome registrado È:");
+            fputs(professores[codigo].nome, stdout);
 
-            case 2:
-                printf("\n\nA modalidade lecionada √© a de c√≥digo %d", professores[codigo].modalidadeLecionada);
+            printf("\n\nQual o novo nome?\n");
+            fgets(professores[codigo].nome, 255, stdin);
+            break;
 
+        case 2:
+            printf("\n\nA modalidade lecionada È a de cÛdigo %d", professores[codigo].modalidadeLecionada);
 
-                printf("\n\nQual o c√≥digo da modalidade que ser√° lecionada a partir de hoje?\n");// ARRUMAR ISSO AQUI
-                scanf("%d", &modalidadePretendida);
+            printf("\n\nQual o cÛdigo da modalidade que ser· lecionada a partir de hoje?\n"); // ARRUMAR ISSO AQUI
+            scanf("%d", &modalidadePretendida);
 
-                for(i=0; i < *qtdModalidades; i++){
-                if(modalidadePretendida == modalidades[i].codigo ){
+            for (i = 0; i < *qtdModalidades; i++)
+            {
+                if (modalidadePretendida == modalidades[i].codigo)
+                {
                     professores[codigo].modalidadeLecionada = modalidadePretendida;
                 }
-    }
-                break;
+            }
+            break;
 
-            case 3:
-                printf("\n\nO local de nascimento est√° registrado como:");
-                fputs(professores[codigo].localDeNascimento, stdout);
+        case 3:
+            printf("\n\nO local de nascimento est· registrado como:");
+            fputs(professores[codigo].localDeNascimento, stdout);
 
-                printf("\n\nDigite o local de nascimento\n");
-                fgets(professores[codigo].localDeNascimento, 100, stdin);
-                break;
+            printf("\n\nDigite o local de nascimento\n");
+            fgets(professores[codigo].localDeNascimento, 100, stdin);
+            break;
 
-            case 4:
-                printf("\n\nA data de nascimento est√° registrada como sendo");
-                fputs(professores[codigo].dataDeNascimento, stdout);
+        case 4:
+            printf("\n\nA data de nascimento est· registrada como sendo");
+            fputs(professores[codigo].dataDeNascimento, stdout);
 
-                printf("\n\nDigite a data correta\n");
-                fgets(professores[codigo].dataDeNascimento, 10, stdin);
-                break;
+            printf("\n\nDigite a data correta\n");
+            fgets(professores[codigo].dataDeNascimento, 10, stdin);
+            break;
 
-            case 5:
-                printf("\n\nO RG registrado √©: %d", professores[codigo].RG);
+        case 5:
+            printf("\n\nO RG registrado È: %d", professores[codigo].RG);
 
-                printf("\n\nDigite o RG correto\n");
-                scanf("%d", professores[codigo].RG);
-                break;
+            printf("\n\nDigite o RG correto\n");
+            scanf("%d", professores[codigo].RG);
+            break;
 
-            case 6:
+        case 6:
 
-                if(professores[codigo].CPF == 0){
-                    printf("\n\nNenhum CPF registrado\n");
-                }else{
-                    printf("\n\nO CPF registrado √©: %d");
-                }
-                
-                printf("Digite o CPF correto\n");
-                scanf("%d", professores[codigo].CPF);
-                
-                break;
+            if (professores[codigo].CPF == 0)
+            {
+                printf("\n\nNenhum CPF registrado\n");
+            }
+            else
+            {
+                printf("\n\nO CPF registrado È: %d");
+            }
 
-            case 7:
+            printf("Digite o CPF correto\n");
+            scanf("%d", professores[codigo].CPF);
 
-                if(professores[codigo].CNPJ == 0){
-                    printf("\n\nNenhum CNPJ registrado\n");
-                }else{
-                    printf("\n\nO CNPJ registrado √©: %d");
-                }
-                
-                printf("Digite o CNPJ correto\n");
-                scanf("%d", professores[codigo].CNPJ);
+            break;
 
-                break;
+        case 7:
 
-            case 8:
+            if (professores[codigo].CNPJ == 0)
+            {
+                printf("\n\nNenhum CNPJ registrado\n");
+            }
+            else
+            {
+                printf("\n\nO CNPJ registrado È: %d");
+            }
 
-                printf("\n\nO endere√ßo registrado √©:");
-                fputs(professores[codigo].endereco, stdout);
+            printf("Digite o CNPJ correto\n");
+            scanf("%d", professores[codigo].CNPJ);
 
-                printf("\n\nDigite o novo endere√ßo\n");
-                fgets(professores[codigo].endereco, stdin);
-                break;
+            break;
 
-            case 9:
-                printf("\n\nO sal√°rio por aluno desse professor √© de: R$ %2.f", professores[codigo].salarioPorAluno);
+        case 8:
 
-                printf("\n\nDigite o sal√°rio atualizado\n");
-                scanf("%f", professores[codigo].salarioPorAluno);
-                break;
+            printf("\n\nO endereÁo registrado È:");
+            fputs(professores[codigo].endereco, stdout);
 
-            case 10:
-                printf("\n\nA sala utilizada atualmente √© a sala de n√∫mero %d", professores[codigo].salaUsada);
+            printf("\n\nDigite o novo endereÁo\n");
+            fgets(professores[codigo].endereco, 255, stdin);
+            break;
 
-                printf("Estas s√£o as salas cadastradas no sistema: \n");
-                for(i=0; i< *qtdSalas; i++){
-                    printf("%d: %s\n", *salas[i].numero, salas[i].nome);
-                }
+        case 9:
+            printf("\n\nO sal·rio por aluno desse professor È de: R$ %2.f", professores[codigo].salarioPorAluno);
 
-                
+            printf("\n\nDigite o sal·rio atualizado\n");
+            scanf("%f", professores[codigo].salarioPorAluno);
+            break;
 
-                do{
-                    printf("\n\nDigite o n√∫mero da sala que voc√™ deseja utilizar\n");
-                    scanf("%d", &salaPretendida);
-                        for(i = 0; i < *qtdSalas; i++){
-                            if(salas[i].numero == salaPretendida){
-                                professores[codigo].salaUsada = salaPretendida;
-                                Status = 1;
-                                codigoSala = i;
-                                break;
-                            }
-                        }
-                    if(Status == 0){
-                        printf("\n\nNenhuma sala encontrada. por favor, digite outro n√∫mero de sala\n");
-                    }
-                }while(Status != 1);
+        case 10:
+            printf("\n\nA sala utilizada atualmente È a sala de n˙mero %d", professores[codigo].salaUsada);
 
-                do{
-                    printf("---------------------------\n");
-                    printf("    Qual o dia da semana que deseja usar a sala?\n");
-                    printf("---------------------------\n");
-                    printf("1) Domingo");
-                    printf("2) Segunda\n");
-                    printf("3) Ter√ßa\n");
-                    printf("4) Quarta\n");
-                    printf("5) Quinta\n");
-                    printf("6) Sexta\n");
-                    printf("7) S√°bado\n");
-                    printf("---------------------------\n");
+            printf("Estas s„o as salas cadastradas no sistema: \n");
+            for (i = 0; i < *qtdSalas; i++)
+            {
+                printf("%d: %s\n", *salas[i].numero, salas[i].nome);
+            }
 
-                    scanf("%d", &diaPretendido);
-
-
-                    printf("\n\n---------------------------\n");
-                    printf("    Qual o per√≠odo do dia em que deseja usar a sala?\n");
-                    printf("---------------------------\n");
-                    printf("1) Manh√£");
-                    printf("2) Tarde\n");
-                    printf("3) Noite\n");
-                    printf("---------------------------\n");
-
-                    scanf("%d", &periodoPretendido);
-
-                    if(salas[codigoSala].matrizHorarios[diaPretendido][periodoPretendido] == 1){
-                        professores[codigo].diaSemana = diaPretendido;
-                        professores[codigo].periodoDia = periodoPretendido;
+            do
+            {
+                printf("\n\nDigite o n˙mero da sala que vocÍ deseja utilizar\n");
+                scanf("%d", &salaPretendida);
+                for (i = 0; i < *qtdSalas; i++)
+                {
+                    if (salas[i].numero == salaPretendida)
+                    {
+                        professores[codigo].salaUsada = salaPretendida;
                         Status = 1;
-                    }else{
-                        printf("\n\nN√£o foi poss√≠vel selecionar esse hor√°rio. Por favor, escolha outro");
-                        Status = 0;
+                        codigoSala = i;
+                        break;
                     }
-                }while(Status != 1);
-                
-                break;
+                }
+                if (Status == 0)
+                {
+                    printf("\n\nNenhuma sala encontrada. por favor, digite outro n˙mero de sala\n");
+                }
+            } while (Status != 1);
 
-            case 0:
-                break;
-            default:
-                printf("\nNenhuma das op√ß√µes selecionadas. Por favor, selecione uma op√ß√£o v√°lida\n");
+            do
+            {
+                printf("---------------------------\n");
+                printf("    Qual o dia da semana que deseja usar a sala?\n");
+                printf("---------------------------\n");
+                printf("1) Domingo");
+                printf("2) Segunda\n");
+                printf("3) TerÁa\n");
+                printf("4) Quarta\n");
+                printf("5) Quinta\n");
+                printf("6) Sexta\n");
+                printf("7) S·bado\n");
+                printf("---------------------------\n");
+
+                scanf("%d", &diaPretendido);
+
+                printf("\n\n---------------------------\n");
+                printf("    Qual o perÌodo do dia em que deseja usar a sala?\n");
+                printf("---------------------------\n");
+                printf("1) Manh„");
+                printf("2) Tarde\n");
+                printf("3) Noite\n");
+                printf("---------------------------\n");
+
+                scanf("%d", &periodoPretendido);
+
+                if (salas[codigoSala].matrizHorarios[diaPretendido][periodoPretendido] == 1)
+                {
+                    professores[codigo].diaSemana = diaPretendido;
+                    professores[codigo].periodoDia = periodoPretendido;
+                    Status = 1;
+                }
+                else
+                {
+                    printf("\n\nN„o foi possÌvel selecionar esse hor·rio. Por favor, escolha outro");
+                    Status = 0;
+                }
+            } while (Status != 1);
+
+            break;
+
+        case 0:
+            break;
+        default:
+            printf("\nNenhuma das opÁıes selecionadas. Por favor, selecione uma opÁ„o v·lida\n");
         }
-
-
-
     }
     free(opcao);
     free(codigo);
@@ -328,19 +352,22 @@ void alterarProfessor(Professor *professores, int* professoresCadastrados, Sala*
     free(i);
     free(diaPretendido);
     free(periodoPretendido);
-
+    free(codigoSala);
 }
 
-void excluirProfessor(Professor *professores, int* professoresCadastrados){
+void excluirProfessor(Professor *professores, int *professoresCadastrados)
+{
     int codigo;
-    
-    printf("\n\nDigite o c√≥digo do professor\n");
+
+    printf("\n\nDigite o cÛdigo do professor\n");
     scanf("%d", &codigo);
 
-    if(codigo < *professoresCadastrados || codigo > *professoresCadastrados){
-        printf("\n\nNenhum professor cadastrado com esse c√≥digo. Imposs√≠vel de excluir\n");
-
-    }else{
+    if (codigo < *professoresCadastrados || codigo > *professoresCadastrados)
+    {
+        printf("\n\nNenhum professor cadastrado com esse cÛdigo. ImpossÌvel de excluir\n");
+    }
+    else
+    {
         *professores[codigo].codigoProfessor = 0;
         (*professoresCadastrados)--;
         if (*professoresCadastrados % 5 != 0 && *professoresCadastrados + 5 % 5 == 0)
@@ -350,50 +377,59 @@ void excluirProfessor(Professor *professores, int* professoresCadastrados){
     }
 
     free(codigo);
-
 }
 
-void consultarProfessor(Professor *professores, int* professoresCadastrados){
+void consultarProfessor(Professor *professores, int *professoresCadastrados)
+{
     int codigo;
 
-    printf("\n\nInsira o c√≥digo do professor que deseja\n");
+    printf("\n\nInsira o cÛdigo do professor que deseja\n");
     scanf("%d", &codigo);
 
-     if(codigo < *professoresCadastrados || codigo > *professoresCadastrados){
-        printf("\n\nNenhum professor cadastrado com esse c√≥digo. Imposs√≠vel de consultar\n");
-    }else{
+    if (codigo < *professoresCadastrados || codigo > *professoresCadastrados)
+    {
+        printf("\n\nNenhum professor cadastrado com esse cÛdigo. ImpossÌvel de consultar\n");
+    }
+    else
+    {
 
-        printf("\n\nO nome registrado √©:");
+        printf("\n\nO nome registrado È:");
         fputs(professores[codigo].nome, stdout);
 
-        printf("\n\nA modalidade lecionada √© a de c√≥digo %d", professores[codigo].modalidadeLecionada);
+        printf("\n\nA modalidade lecionada È a de cÛdigo %d", professores[codigo].modalidadeLecionada);
 
-         printf("\n\nO local de nascimento est√° registrado como:");
+        printf("\n\nO local de nascimento est· registrado como:");
         fputs(professores[codigo].localDeNascimento, stdout);
 
-        printf("\n\nA data de nascimento est√° registrada como sendo");
+        printf("\n\nA data de nascimento est· registrada como sendo");
         fputs(professores[codigo].dataDeNascimento, stdout);
 
-        printf("\n\nO RG registrado √©: %d", professores[codigo].RG);
+        printf("\n\nO RG registrado È: %d", professores[codigo].RG);
 
-        if(professores[codigo].CPF == 0){
+        if (professores[codigo].CPF == 0)
+        {
             printf("\n\nNenhum CPF registrado\n");
-        }else{
-            printf("\n\nO CPF registrado √©: %d");
+        }
+        else
+        {
+            printf("\n\nO CPF registrado È: %d");
         }
 
-        if(professores[codigo].CNPJ == 0){
+        if (professores[codigo].CNPJ == 0)
+        {
             printf("\n\nNenhum CNPJ registrado\n");
-        }else{
-            printf("\n\nO CNPJ registrado √©: %d");
+        }
+        else
+        {
+            printf("\n\nO CNPJ registrado È: %d");
         }
 
-        printf("\n\nO endere√ßo registrado √©: ");
+        printf("\n\nO endereÁo registrado È: ");
         fputs(professores[codigo].endereco, stdout);
 
-        printf("\n\nO sal√°rio por aluno desse professor √© de: R$ %2.f", professores[codigo].salarioPorAluno);
+        printf("\n\nO sal·rio por aluno desse professor È de: R$ %2.f", professores[codigo].salarioPorAluno);
 
-        printf("\n\nA sala utilizada atualmente √© a sala de n√∫mero %d", professores[codigo].salaUsada);
+        printf("\n\nA sala utilizada atualmente È a sala de n˙mero %d", professores[codigo].salaUsada);
     }
 
     free(codigo);
