@@ -11,7 +11,9 @@
 
 #define valorAcrescimoMemoria 5
 
-void TelaPrincipal();
+
+
+void TelaMenuPrincipal();
 int TelaMenuCliente();
 void TelaMenuProfessor();
 void TelaMenuSala();
@@ -30,7 +32,7 @@ int main()
     Modalidade *modalidades;
 
     aluno = (Cliente *)malloc(valorAcrescimoMemoria * sizeof(Cliente));
-    for (int i = 0; i < valorAcrescimoMemoria; i++)
+    for(int i = 0; i < valorAcrescimoMemoria; i++)
     {
         aluno[i].codigo = 0;
     }
