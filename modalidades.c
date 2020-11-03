@@ -41,11 +41,7 @@ void cadastrarModalidade(Modalidade *modalidades, int *qtdModalidades){
     scanf("%d", &modalidades[id].idade);
     getchar();
     
-    printf("Digite o nome do professor que lecionará a modalidade: \n");
-    fgets(modalidades[id].nomeProfessor, 100, stdin);
     
-    printf("Digite o numero da sala a ser utilizada: \n");
-    scanf("%d", &modalidades[id].sala);
     
     //printf("Codigo: %d\nNome: %s\nDescricao modalidade: %s\nDescricao materiais: %s\nValor mensalidade: %.2f\nIdade minima: %d\nNome professor: %s\nSala: %d\n", modalidades[id].codigo, modalidades[id].nome, modalidades[id].descModalidade, modalidades[id].descMateriais, modalidades[id].valorMensalidade, modalidades[id].idade, modalidades[id].nomeProfessor, modalidades[id].sala);
 }
@@ -84,7 +80,7 @@ void alterarModalidade(Modalidade *modalidades, int *qtdModalidades){
 
     printf("Digite o codigo da modalidade a ser alterada: \n");
     scanf("%d", &modalidadeAlterada);
-    printf("Selecione a opcao que deseja alterar?\n1- nome\n2- descricao da modalidade\n3- descricao dos materiais\n4- valor da mensalidade\n5- idade minima\n6- professor\n7- sala\n");
+    printf("Selecione a opcao que deseja alterar?\n1- nome\n2- descricao da modalidade\n3- descricao dos materiais\n4- valor da mensalidade\n5- idade minima\n");
     scanf("%d", &op);
     
     for (i = 0; modalidades[i].codigo != modalidadeAlterada; i++);
@@ -111,14 +107,6 @@ void alterarModalidade(Modalidade *modalidades, int *qtdModalidades){
         printf("Digite a nova idade minima: \n"); //alteracao idade minima
         scanf("%d", &modalidades[i].idade);
         break;
-    case 6:
-        printf("Digite o nome do novo professor: \n"); //alteracao prof
-        scanf("%d", &modalidades[i].nomeProfessor);
-        break;
-    case 7:
-        printf("Digite o numero da nova sala: \n"); //alteracao sala
-        scanf("%d", &modalidades[i].sala);
-        break;
     default:
         printf("Opcao invalida!\n");
         break;
@@ -144,7 +132,7 @@ void consultarModalidade(Modalidade *modalidades, int *qtdModalidades){
     printf("Descricao dos materiais: %s\n", modalidades[i].descMateriais);
     printf("Valor da mensalidade: %.2f\n", modalidades[i].valorMensalidade);
     printf("Idade minima: %d\n", modalidades[i].idade);
-    printf("Nome do professor: %s\n", modalidades[i].nomeProfessor);
-    printf("Sala: %d\n", modalidades[i].sala);
+   
+   
 }
 

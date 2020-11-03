@@ -39,8 +39,6 @@ typedef struct modalidades{
     char descMateriais[200]; //descricao dos materiais necessários (roupas, sapatos, objetos como barra, etc)
     float valorMensalidade; //valor da mensalidade da modalidade
     int idade; //idade mínima para fazer a modalidade 
-    char nomeProfessor[100]; //professor que lecionara a aula
-    int sala; //sala onde sera lecionada a aula
 } Modalidade;
 
 typedef struct salas{
