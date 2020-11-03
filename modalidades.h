@@ -4,7 +4,7 @@
 
 void cadastrarModalidade(Modalidade*, int*);
 void excluirModalidade(Modalidade*, int*);
-void alterarModalidade(Modalidade*);
+void alterarModalidade(Modalidade*, int*);
 void consultarModalidade(Modalidade*, int*);
 
 #endif // _MODALIDADES_H

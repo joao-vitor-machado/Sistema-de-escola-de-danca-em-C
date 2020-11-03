@@ -4,7 +4,7 @@
 
 void cadastrarSala(Sala*, int*);
 void excluirSala(Sala*, int*);
-void alterarSala(Sala*);
+void alterarSala(Sala*, int*);
 void consultarSala(Sala*, int*);
 
 #endif // _SALAS_H
