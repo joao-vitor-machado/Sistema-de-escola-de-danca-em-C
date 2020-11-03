@@ -7,7 +7,7 @@
 
 void TelaMenuProfessor()
 {
-
+		system("cls");
         printf("---------------------------\n");
         printf("    Menu Professores\n");
         printf("---------------------------\n");
@@ -17,57 +17,75 @@ void TelaMenuProfessor()
         printf("4) *Exclusao de Professores\n");
         printf("0) *Cancelar\n");
         printf("---------------------------\n");
-
+	
 }
 
 void cadastrarProfessor(Professor *professores, int *professoresCadastrados, Sala *salas, int *qtdSalas, Modalidade *modalidades, int *qtdModalidades)
 {
-
-    int numHorarios, i, opcao;
+	
+    int numHorarios, i, opcao, max;
+    
+    if (*professoresCadastrados % 5 == 0)
+    {
+    	max = *professoresCadastrados + 5;
+        professores = realloc(professores, (max) * sizeof(Professor));
+    }
+    else {
+    	max = *professoresCadastrados;
+	}
 
     *professoresCadastrados += 1;
 
     professores[*professoresCadastrados].codigoProfessor = *professoresCadastrados;
-
+    
+	getchar();
     printf("Digite o nome do professor que será cadastrado\n");
     fgets(professores[*professoresCadastrados].nome, 255, stdin);
 
     printf("\nDigite o código para a modalidade lecionada\n");
-    scanf("%d", professores[*professoresCadastrados].modalidadeLecionada);
+    scanf("%d", &professores[*professoresCadastrados].modalidadeLecionada);
 
+	getchar();
     printf("\nDigite a data de nascimento. Exemplo: 00/00/0000\n");
     fgets(professores[*professoresCadastrados].dataDeNascimento, 10, stdin);
-
+    
+    
     printf("\nDigite o local de nascimento\n");
     fgets(professores[*professoresCadastrados].localDeNascimento, 255, stdin);
 
-    printf("Inserir:\n");
+    printf("\nInserir:\n");
     printf("1) CPF\n");
     printf("2) CNPJ\n");
-
+	
+	scanf("%d", &opcao);
+	
     switch (opcao)
     {
     case 1:
         printf("\nDigite o CPF\n");
-        scanf("%d", professores[*professoresCadastrados].CPF);
+        scanf("%d", &professores[*professoresCadastrados].CPF);
+        professores[*professoresCadastrados].CNPJ = 0;
         break;
     case 2:
         printf("\nDigite o CNPJ\n");
-        scanf("%d", professores[*professoresCadastrados].CNPJ);
+        scanf("%d", &professores[*professoresCadastrados].CNPJ);
+        professores[*professoresCadastrados].CPF = 0;
         break;
 
     default:
         printf("\nDigite o CPF\n");
-        scanf("%d", professores[*professoresCadastrados].CPF);
+        scanf("%d", &professores[*professoresCadastrados].CPF);
+        professores[*professoresCadastrados].CNPJ = 0;
         break;
     }
-
+	
+	getchar();
     printf("\nDigite o endereço da residência\n");
     fgets(professores[*professoresCadastrados].endereco, 255, stdin);
 
     printf("\nDigite o salário por aluno\n");
-    scanf("%f", professores[*professoresCadastrados].salarioPorAluno);
-
+    scanf("%f", &professores[*professoresCadastrados].salarioPorAluno);
+	/*
     printf("Estas são as salas cadastradas no sistema: \n"); //Mostra todas as salas que existem
     for (i = 0; i < *qtdSalas; i++)
     {
@@ -75,7 +93,7 @@ void cadastrarProfessor(Professor *professores, int *professoresCadastrados, Sal
     } //end
 
     printf("\nDigite o número da sala que será usada por ele(a)\n");
-    scanf("%d", professores[*professoresCadastrados].salaUsada);
+    scanf("%d", &professores[*professoresCadastrados].salaUsada);
 
     for (i = 0; salas[i].numero != professores[*professoresCadastrados].salaUsada; i++)
         ;
@@ -107,12 +125,54 @@ void cadastrarProfessor(Professor *professores, int *professoresCadastrados, Sal
 
     for (i = 0; i < numHorarios; i++)
     {
-        scanf("%d %d", professores[*professoresCadastrados].periodoDia, professores[*professoresCadastrados].diaSemana);
+        scanf("%d %d", &professores[*professoresCadastrados].periodoDia, &professores[*professoresCadastrados].diaSemana);
     }
 
     printf("\nCadastro encerrado\n\n");
+*/
 
-}
+	int codigo = *professoresCadastrados;
+	
+	printf("\n\nO nome registrado é:");
+	fputs(professores[codigo].nome, stdout);
+	
+	printf("\n\nA modalidade lecionada é a de código %d", professores[codigo].modalidadeLecionada);
+	
+	printf("\n\nO local de nascimento está registrado como:");
+	fputs(professores[codigo].localDeNascimento, stdout);
+	
+	printf("\n\nA data de nascimento está registrada como sendo");
+	fputs(professores[codigo].dataDeNascimento, stdout);
+	
+	printf("\n\nO RG registrado é: %d", professores[codigo].RG);
+	
+	if (professores[codigo].CPF == 0)
+	    {
+	    printf("\n\nNenhum CPF registrado\n");
+	    }
+	    else
+	    {
+	    printf("\n\nO CPF registrado é: %d");
+	    }
+	
+	    if (professores[codigo].CNPJ == 0)
+	        {
+	        printf("\n\nNenhum CNPJ registrado\n");
+	        }
+	    else
+	        {
+	        printf("\n\nO CNPJ registrado é: %d");
+	        }
+	
+		printf("\n\nO endereço registrado é: ");
+	    fputs(professores[codigo].endereco, stdout);
+	
+	    printf("\n\nO salário por aluno desse professor é de: R$ %2.f", professores[codigo].salarioPorAluno);
+	
+	    printf("\n\nA sala utilizada atualmente é a sala de número %d", professores[codigo].salaUsada);
+	    printf("\n\n");
+    }
+
 
 void alterarProfessor(Professor *professores, int *professoresCadastrados, Sala *salas, int *qtdSalas, Modalidade *modalidades, int *qtdModalidades)
 {
@@ -393,6 +453,7 @@ void consultarProfessor(Professor *professores, int *professoresCadastrados)
         printf("\n\nO salário por aluno desse professor é de: R$ %2.f", professores[codigo].salarioPorAluno);
 
         printf("\n\nA sala utilizada atualmente é a sala de número %d", professores[codigo].salaUsada);
+        printf("\n\n");
     }
 
   

@@ -79,6 +79,7 @@ int main()
     case 2:
     {
         TelaMenuProfessor();
+        getchar();
         scanf("%d", &opcaoSubMenu);
         switch (opcaoSubMenu)
         {
