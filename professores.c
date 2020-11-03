@@ -49,9 +49,13 @@ void cadastrarProfessor(Professor *professores, int *professoresCadastrados, Sal
     printf("\nDigite a data de nascimento. Exemplo: 00/00/0000\n");
     fgets(professores[*professoresCadastrados].dataDeNascimento, 10, stdin);
     
-    
+    getchar();
+    getchar();
     printf("\nDigite o local de nascimento\n");
     fgets(professores[*professoresCadastrados].localDeNascimento, 255, stdin);
+
+	printf("\nDigite o RG\n");
+    scanf("%d", &professores[*professoresCadastrados].RG);
 
     printf("\nInserir:\n");
     printf("1) CPF\n");
@@ -85,6 +89,7 @@ void cadastrarProfessor(Professor *professores, int *professoresCadastrados, Sal
 
     printf("\nDigite o salário por aluno\n");
     scanf("%f", &professores[*professoresCadastrados].salarioPorAluno);
+    
 	/*
     printf("Estas são as salas cadastradas no sistema: \n"); //Mostra todas as salas que existem
     for (i = 0; i < *qtdSalas; i++)
@@ -141,7 +146,7 @@ void cadastrarProfessor(Professor *professores, int *professoresCadastrados, Sal
 	printf("\n\nO local de nascimento está registrado como:");
 	fputs(professores[codigo].localDeNascimento, stdout);
 	
-	printf("\n\nA data de nascimento está registrada como sendo");
+	printf("\n\nA data de nascimento está registrada como sendo ");
 	fputs(professores[codigo].dataDeNascimento, stdout);
 	
 	printf("\n\nO RG registrado é: %d", professores[codigo].RG);
@@ -152,7 +157,7 @@ void cadastrarProfessor(Professor *professores, int *professoresCadastrados, Sal
 	    }
 	    else
 	    {
-	    printf("\n\nO CPF registrado é: %d");
+	    printf("\n\nO CPF registrado é: %d", professores[codigo].CPF);
 	    }
 	
 	    if (professores[codigo].CNPJ == 0)
@@ -161,7 +166,7 @@ void cadastrarProfessor(Professor *professores, int *professoresCadastrados, Sal
 	        }
 	    else
 	        {
-	        printf("\n\nO CNPJ registrado é: %d");
+	        printf("\n\nO CNPJ registrado é: %d", professores[codigo].CNPJ);
 	        }
 	
 		printf("\n\nO endereço registrado é: ");
@@ -416,44 +421,44 @@ void consultarProfessor(Professor *professores, int *professoresCadastrados)
     else
     {
 
-        printf("\n\nO nome registrado é:");
-        fputs(professores[codigo].nome, stdout);
-
-        printf("\n\nA modalidade lecionada é a de código %d", professores[codigo].modalidadeLecionada);
-
-        printf("\n\nO local de nascimento está registrado como:");
-        fputs(professores[codigo].localDeNascimento, stdout);
-
-        printf("\n\nA data de nascimento está registrada como sendo");
-        fputs(professores[codigo].dataDeNascimento, stdout);
-
-        printf("\n\nO RG registrado é: %d", professores[codigo].RG);
-
-        if (professores[codigo].CPF == 0)
-        {
-            printf("\n\nNenhum CPF registrado\n");
-        }
-        else
-        {
-            printf("\n\nO CPF registrado é: %d");
-        }
-
-        if (professores[codigo].CNPJ == 0)
-        {
-            printf("\n\nNenhum CNPJ registrado\n");
-        }
-        else
-        {
-            printf("\n\nO CNPJ registrado é: %d");
-        }
-
-        printf("\n\nO endereço registrado é: ");
-        fputs(professores[codigo].endereco, stdout);
-
-        printf("\n\nO salário por aluno desse professor é de: R$ %2.f", professores[codigo].salarioPorAluno);
-
-        printf("\n\nA sala utilizada atualmente é a sala de número %d", professores[codigo].salaUsada);
-        printf("\n\n");
+        	printf("\n\nO nome registrado é:");
+	fputs(professores[codigo].nome, stdout);
+	
+	printf("\n\nA modalidade lecionada é a de código %d", professores[codigo].modalidadeLecionada);
+	
+	printf("\n\nO local de nascimento está registrado como:");
+	fputs(professores[codigo].localDeNascimento, stdout);
+	
+	printf("\n\nA data de nascimento está registrada como sendo ");
+	fputs(professores[codigo].dataDeNascimento, stdout);
+	
+	printf("\n\nO RG registrado é: %d", professores[codigo].RG);
+	
+	if (professores[codigo].CPF == 0)
+	    {
+	    printf("\n\nNenhum CPF registrado\n");
+	    }
+	    else
+	    {
+	    printf("\n\nO CPF registrado é: %d", professores[codigo].CPF);
+	    }
+	
+	    if (professores[codigo].CNPJ == 0)
+	        {
+	        printf("\n\nNenhum CNPJ registrado\n");
+	        }
+	    else
+	        {
+	        printf("\n\nO CNPJ registrado é: %d", professores[codigo].CNPJ);
+	        }
+	
+		printf("\n\nO endereço registrado é: ");
+	    fputs(professores[codigo].endereco, stdout);
+	
+	    printf("\n\nO salário por aluno desse professor é de: R$ %2.f", professores[codigo].salarioPorAluno);
+	
+	    printf("\n\nA sala utilizada atualmente é a sala de número %d", professores[codigo].salaUsada);
+	    printf("\n\n");
     }
 
   

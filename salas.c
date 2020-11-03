@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "salas.h"
 
 void cadastrarSala(Sala *salas, int *qtdSalas)
@@ -31,7 +32,7 @@ void cadastrarSala(Sala *salas, int *qtdSalas)
 
 void excluirSala(Sala *salas, int *qtdSalas)
 {
-    int salaExcluida, i;
+    int salaExcluida, i ,j;
     char op;
 
     printf("Digite o numero da sala a ser excluida: \n");
@@ -42,7 +43,7 @@ void excluirSala(Sala *salas, int *qtdSalas)
     {
         for (i = 0; salas[i].numero != salaExcluida; i++);
 
-        for (int j = i; j < *qtdSalas; j++)
+        for (j = i; j < *qtdSalas; j++)
         {
             salas[j] = salas[j + 1];
         }
