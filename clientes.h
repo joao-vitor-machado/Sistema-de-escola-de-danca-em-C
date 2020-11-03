@@ -12,5 +12,6 @@ void LimparEspacoVazio(Cliente *);
 void CalcularMensalidade(Cliente *, int *);
 int PesquisarCodigo(Cliente *, int);
 int PesquisarIndiceVazio(Cliente *);
+int ExisteCodigo(Cliente *, int, int);
 
 #endif

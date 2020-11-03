@@ -7,8 +7,6 @@
 #include "salas.h"
 #include "modalidades.h"
 #include "types.h"
-//#include "horarios.h"
-//#include "mensalidade.h"
 #define valorAcrescimoMemoria 5
 
 
@@ -45,8 +43,10 @@ int main()
     
     
 
-    TelaMenuPrincipal();
     
+    
+    do{
+	TelaMenuPrincipal();
     scanf("%d", &opcaoMenu);
     switch (opcaoMenu)
     {
@@ -158,13 +158,15 @@ int main()
 
         break;
     }
+    case 5:
+    	break;
     default:
     {
-        printf("%Op��o inv�lida!");
+        printf("Opcao invalida!");
         break;
     }
     }
-    
+}while (opcaoMenu != 5);
     return 0;
 }
 
@@ -178,6 +180,7 @@ void TelaMenuPrincipal()
     printf("2) *Menu Professores\n");
     printf("3) *Menu Salas\n");
     printf("4) *Menu Modalidades\n");
+    printf("5) *Sair\n");
     printf("---------------------------\n");
 }
 
@@ -245,7 +248,7 @@ int ValidarCodigo()
         scanf("%d", &codigo);
 
         if (codigo == 0)
-            printf("C�digo digitado Inv�lido\nInsira um c�digo v�lido: ");
+            printf("Codigo digitado Invalido\nInsira um codigo valido: ");
 
     } while (codigo == 0);
 

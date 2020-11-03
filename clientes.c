@@ -6,16 +6,20 @@
 void CadastrarCliente(Cliente *aluno, int *alunosCadastrados)
 {
     int tempCod, sucesso = 0, tempIndex;
-    int qntModalidades = 1;
+    int qntModalidades = 1, maximoVetor;
 
     if (*alunosCadastrados % 5 == 0)
     {
-        aluno = realloc(aluno, (*alunosCadastrados + 5) * sizeof(Cliente));
-        for (int i = *alunosCadastrados; i < *alunosCadastrados + 5; i++)
+    	maximoVetor = *alunosCadastrados + 5;
+        aluno = realloc(aluno, (maximoVetor) * sizeof(Cliente));
+        for (int i = *alunosCadastrados; i < maximoVetor; i++)
         {
             aluno[i].codigo = 0;
         }
     }
+    else {
+    	maximoVetor = *alunosCadastrados;
+	}
 
     tempIndex = *alunosCadastrados;
     do
@@ -31,9 +35,14 @@ void CadastrarCliente(Cliente *aluno, int *alunosCadastrados)
                 scanf("%d", &tempCod);
                 getchar();
 
-                if (tempCod != 0)
+                if (tempCod != 0 )
                 {
-                    aluno[tempIndex].codigo = tempCod;
+                	if(!ExisteCodigo(aluno,tempCod, maximoVetor)==1)
+                    	aluno[tempIndex].codigo = tempCod;
+                    else
+                    {
+                    	printf("codigo ja cadastrado!");
+					}
                 }
                 else
                 {
@@ -62,7 +71,7 @@ void CadastrarCliente(Cliente *aluno, int *alunosCadastrados)
             }
             printf("Nome:");
             fgets(aluno[tempIndex].nome, 255, stdin);
-            printf("Idade: ");
+            printf("Idade:");
             scanf("%d", &aluno[tempIndex].idade);
             getchar();
             printf("Endereco:");
@@ -75,18 +84,18 @@ void CadastrarCliente(Cliente *aluno, int *alunosCadastrados)
             getchar();
             CalcularMensalidade(&aluno[tempIndex], &qntModalidades);
 
-            printf("\nVencimento do Boleto:");
+            printf("Vencimento do Boleto:\n");
             fgets(aluno[tempIndex].dataVencimentoBoleto, 11, stdin);
             if (aluno[tempIndex].idade < 18)
             {
                 printf("---------------------------\n");
                 printf("Dados do responsavel");
                 printf("\n---------------------------\n");
-                printf("Nome:\n");
+                printf("Nome:");
                 fgets(aluno[tempIndex].nomeResponsavel, 255, stdin);
-                printf("RG:\n");
+                printf("RG:");
                 fgets(aluno[tempIndex].RG, 16, stdin);
-                printf("CPF:\n");
+                printf("CPF:");
                 fgets(aluno[tempIndex].CPF, 12, stdin);
                 printf("---------------------------\n");
                 system("cls");
@@ -96,9 +105,9 @@ void CadastrarCliente(Cliente *aluno, int *alunosCadastrados)
 
             else
             {
-                printf("\nRG:\n");
+                printf("RG:\n");
                 fgets(aluno[tempIndex].RG, 16, stdin);
-                printf("\nCPF:\n");
+                printf("CPF:\n");
                 fgets(aluno[tempIndex].CPF, 12, stdin);
                 printf("---------------------------\n");
 
@@ -108,12 +117,14 @@ void CadastrarCliente(Cliente *aluno, int *alunosCadastrados)
             (*alunosCadastrados)++;
             LimparEspacoVazio(&aluno[tempIndex]);
             sucesso = 1;
+            	printf("%d\n%d",sucesso,*alunosCadastrados);
         }
         else
         {
             tempIndex = PesquisarIndiceVazio(aluno);
             sucesso = 0;
         }
+
 
     } while (sucesso != 1);
 }
@@ -298,7 +309,7 @@ int PesquisarCodigo(Cliente *aluno, int codigo)
     }
     else
     {
-        printf("Código não encontrado\n");
+        printf("Codigo nao encontrado\n");
         return 0;
     }
 }
@@ -309,4 +320,17 @@ int PesquisarIndiceVazio(Cliente *aluno)
     for (i = 0; aluno[i].codigo != 0; i++)
         ;
     return i;
+}
+
+int ExisteCodigo(Cliente *aluno, int codigo, int MAX){
+	     	    
+	int i, busca = 0;
+	for (i = 0; i < MAX && !busca; i++) {
+	
+		if (aluno[i].codigo == codigo) {
+		printf("\nAluno ja cadastrado\n");
+				busca = 1;
+		}
+	}
+    return busca;
 }
