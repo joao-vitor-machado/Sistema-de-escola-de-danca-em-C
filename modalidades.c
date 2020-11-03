@@ -4,26 +4,35 @@
 
 void cadastrarModalidade(Modalidade *modalidades, int *qtdModalidades){
 
-	int codValido, id, i;
+	int codValido=0, id, i, k;
 	id = *qtdModalidades;
 
-    /*if(*qtdModalidades%5 == 0){
-        modalidades = realloc(modalidades, (*qtdModalidades+5) * sizeof(Modalidade));
-    } */
+    if((id%5==0) && (id!=0)){
+    	modalidades = (Modalidade *) realloc(modalidades,(id+5)*sizeof(Modalidade)); //realocacao de memoria
+	}
 	
 	do{
-	codValido=0;
+		codValido=0;
 		
-	printf("Digite o codigo da modalidade: \n");
-    scanf("%d", &modalidades[id].codigo);
-    getchar();
-    
-    if(modalidades[id].codigo == 0){
-    	printf("Codigo invalido. Insira um codigo valido!\n");
-    	codValido=1;
-	}
-    
-	} while (codValido==1);
+		printf("Digite o codigo da modalidade: \n");
+    	scanf("%d", &modalidades[id].codigo);
+	    getchar();
+	    
+	    if(modalidades[id].codigo == 0){ //confere se o codigo digitado eh igual a 0
+	    	codValido=1;
+		} else {
+			for(k=0; k<id; k++){
+				if(modalidades[id].codigo == modalidades[k].codigo){ //confere se o codigo ja eh existente
+					codValido=1;
+				}
+			}
+		}
+		
+		if(codValido == 1){
+			printf("Codigo invalido. Insira um codigo valido!\n");
+		}
+		
+	} while (codValido == 1);
 	
     printf("Digite o nome da modalidade: \n");
     fgets(modalidades[id].nome, 100, stdin);
@@ -41,9 +50,9 @@ void cadastrarModalidade(Modalidade *modalidades, int *qtdModalidades){
     scanf("%d", &modalidades[id].idade);
     getchar();
     
+    printf("Digite o nome do professor que lecionará a modalidade: \n");
+    fgets(modalidades[id].nomeProfessor, 100, stdin);
     
-    
-    //printf("Codigo: %d\nNome: %s\nDescricao modalidade: %s\nDescricao materiais: %s\nValor mensalidade: %.2f\nIdade minima: %d\nNome professor: %s\nSala: %d\n", modalidades[id].codigo, modalidades[id].nome, modalidades[id].descModalidade, modalidades[id].descMateriais, modalidades[id].valorMensalidade, modalidades[id].idade, modalidades[id].nomeProfessor, modalidades[id].sala);
 }
 
 void excluirModalidade(Modalidade *modalidades, int *qtdModalidades){
@@ -64,26 +73,48 @@ void excluirModalidade(Modalidade *modalidades, int *qtdModalidades){
             modalidades[j] = modalidades[j + 1];
         }
         *qtdModalidades -= 1;
-        modalidades = realloc(modalidades, *qtdModalidades * sizeof(Modalidade));
+        //modalidades = (Modalidade *) realloc(modalidades,(id+5)*sizeof(Modalidade));
     }
 
 }
 
 void alterarModalidade(Modalidade *modalidades, int *qtdModalidades){
-    int modalidadeAlterada, op, i, j, id;
+    int modalidadeAlterada, op, i, j, k, id, codValido=0;
     id = *qtdModalidades;
     
     printf("Estas são as modalidades cadastradas no sistema: \n");
     for(j=0; j<id; j++){
         printf("%d: %s\n", modalidades[j].codigo, modalidades[j].nome);
     }
-
-    printf("Digite o codigo da modalidade a ser alterada: \n");
-    scanf("%d", &modalidadeAlterada);
-    printf("Selecione a opcao que deseja alterar?\n1- nome\n2- descricao da modalidade\n3- descricao dos materiais\n4- valor da mensalidade\n5- idade minima\n");
-    scanf("%d", &op);
     
-    for (i = 0; modalidades[i].codigo != modalidadeAlterada; i++);
+    do{
+		codValido=0;
+		
+		printf("Digite o codigo da modalidade a ser alterada: \n");
+	    scanf("%d", &modalidadeAlterada);
+	    getchar();
+	    
+	    if(modalidadeAlterada == 0){ //confere se o codigo digitado eh igual a 0
+	    	codValido=1;
+		} else {
+			for(k=0; k<id; k++){
+				if(modalidadeAlterada != modalidades[k].codigo){ //confere se o codigo eh existente
+					codValido+=2;
+				}
+			}
+		}
+		
+		if(codValido == 1 || codValido == id*2){
+			printf("Codigo invalido. Insira um codigo valido!\n");
+		}
+		
+	} while (codValido == 1 || codValido == id*2);
+    
+    printf("Selecione a opcao que deseja alterar?\n1- nome\n2- descricao da modalidade\n3- descricao dos materiais\n4- valor da mensalidade\n5- idade minima\n6- professor\n");
+    scanf("%d", &op);
+    getchar();
+    
+    for (i = 0; modalidades[i].codigo != modalidadeAlterada; i++); //procura a posicao de memoria onde o codigo foi alocado
 
     switch (op)
     {
@@ -107,6 +138,10 @@ void alterarModalidade(Modalidade *modalidades, int *qtdModalidades){
         printf("Digite a nova idade minima: \n"); //alteracao idade minima
         scanf("%d", &modalidades[i].idade);
         break;
+    case 6:
+        printf("Digite o nome do novo professor: \n"); //alteracao prof
+        scanf("%d", &modalidades[i].nomeProfessor);
+        break;
     default:
         printf("Opcao invalida!\n");
         break;
@@ -114,25 +149,47 @@ void alterarModalidade(Modalidade *modalidades, int *qtdModalidades){
 }
 
 void consultarModalidade(Modalidade *modalidades, int *qtdModalidades){
-    int modalidadeConsultada, id, i, j;
+    int modalidadeConsultada, id, i, j, k, codValido=0;
     id = *qtdModalidades;
 
     printf("Estas são as modalidades cadastradas no sistema: \n");
     for(j=0; j<id; j++){
         printf("%d: %s\n", modalidades[j].codigo, modalidades[j].nome);
     }
+    
+    do{
+		codValido=0;
+		
+		printf("Digite o codigo da modalidade que deseja consultar: \n");
+    	scanf("%d", &modalidadeConsultada);
+	    getchar();
+	    
+	    if(modalidadeConsultada == 0){ //confere se o codigo digitado eh igual a 0
+	    	codValido=1;
+		} else {
+			for(k=0; k<id; k++){
+				if(modalidadeConsultada != modalidades[k].codigo){ //confere se o codigo eh existente
+					codValido+=2;
+				}
+			}
+		}
+		
+		if(codValido == 1 || codValido == id*2){
+			printf("Codigo invalido. Insira um codigo valido!\n");
+		}
+		
+	} while (codValido == 1 || codValido == id*2);
 
-    printf("Digite o codigo da modalidade que deseja consultar: \n");
-    scanf("%d", &modalidadeConsultada);
+    
 
-    for(i=0; modalidades[i].codigo != modalidadeConsultada && i<id; i++);
+    for(i=0; modalidades[i].codigo != modalidadeConsultada && i<id; i++); //procura a posicao de memoria onde o codigo foi alocado
+    
     printf("Estas sao as informacoes cadastradas na modalidade %d\n", modalidadeConsultada);
     printf("Nome: %s\n", modalidades[i].nome);
     printf("Descricao da modalidade: %s\n", modalidades[i].descModalidade);
     printf("Descricao dos materiais: %s\n", modalidades[i].descMateriais);
     printf("Valor da mensalidade: %.2f\n", modalidades[i].valorMensalidade);
     printf("Idade minima: %d\n", modalidades[i].idade);
-   
-   
+    printf("Nome do professor: %s\n", modalidades[i].nomeProfessor);
 }
 

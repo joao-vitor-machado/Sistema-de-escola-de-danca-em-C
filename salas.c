@@ -4,26 +4,35 @@
 
 void cadastrarSala(Sala *salas, int *qtdSalas)
 {
-    int i, j, id, codValido;
+    int i, j, k, id, codValido;
     id = *qtdSalas;
 
-    /*if(*qtdSalas%5 == 0){
-        salas = realloc(salas, (*qtdSalas+5) * sizeof(Sala));
-    }*/
-    
-    do{
-	codValido=0;
-		
-	printf("Digite o numero da sala: \n");
-    scanf("%d", &salas[id].numero);
-    getchar();
-    
-    if(salas[id].numero == 0){
-    	printf("Numero invalido. Insira um numero valido!\n");
-    	codValido=1;
+    if((id%5==0) && (id!=0)){
+    	salas = (Sala *) realloc(salas,(id+5)*sizeof(Sala));
 	}
     
-	} while (codValido==1);
+	do{
+		codValido=0;
+		
+		printf("Digite o numero da sala: \n");
+    	scanf("%d", &salas[id].numero);
+	    getchar();
+	    
+	    if(salas[id].numero == 0){ //confere se o numero digitado eh igual a 0
+	    	codValido=1;
+		} else {
+			for(k=0; k<id; k++){
+				if(salas[id].numero == salas[k].numero){ //confere se o numero ja eh existente
+					codValido=1;
+				}
+			}
+		}
+		
+		if(codValido == 1){
+			printf("Codigo invalido. Insira um codigo valido!\n");
+		}
+		
+	} while (codValido == 1);
 
     printf("Digite o nome da sala: \n");
     fgets(salas[id].nome, 100, stdin);
@@ -45,7 +54,7 @@ void cadastrarSala(Sala *salas, int *qtdSalas)
 
 void excluirSala(Sala *salas, int *qtdSalas)
 {
-    int salaExcluida, i ,j;
+    int salaExcluida, i, j;
     char op;
 
     printf("Digite o numero da sala a ser excluida: \n");
@@ -67,22 +76,43 @@ void excluirSala(Sala *salas, int *qtdSalas)
 
 void alterarSala(Sala *salas, int *qtdSalas)
 {
-    int salaAlterada, op, i, j, id;
+    int salaAlterada, op, i, j, k, id, codValido=0;
     id = *qtdSalas;
     
     printf("Estas sao as salas cadastradas no sistema: \n");
     for(j=0; j<id; j++){
         printf("%d: %s\n", salas[j].numero, salas[j].nome);
     }
+    
+    do{
+		codValido=0;
+		
+		printf("Digite o numero da sala a ser alterada: \n");
+	    scanf("%d", &salaAlterada);
+	    getchar();
+	    
+	    if(salaAlterada == 0){ //confere se o numero digitado eh igual a 0
+	    	codValido=1;
+		} else {
+			for(k=0; k<id; k++){
+				if(salaAlterada != salas[k].numero){ //confere se o numero eh existente
+					codValido+=2;
+				}
+			}
+		}
+		
+		if(codValido == 1 || codValido == id*2){
+			printf("Codigo invalido. Insira um codigo valido!\n");
+		}
+		
+	} while (codValido == 1 || codValido == id*2);
 
-    printf("Digite o numero da sala a ser alterada: \n");
-    scanf("%d", &salaAlterada);
-    getchar();
+    
     printf("Selecione a opcao que deseja alterar?\n1- nome\n2- numero\n");
     scanf("%d", &op);
     getchar();
     
-    for (i = 0; salas[i].numero != salaAlterada && i<id; i++);
+    for (i = 0; salas[i].numero != salaAlterada && i<id; i++); //procura a posicao de memoria onde o numero da sala foi alocado
 
     switch (op)
     {
@@ -102,18 +132,39 @@ void alterarSala(Sala *salas, int *qtdSalas)
 
 void consultarSala(Sala *salas, int *qtdSalas)
 {
-    int i, j, salaConsultada, id;
+    int i, j, k, salaConsultada, id, codValido=0;
     id = *qtdSalas;
 
     printf("Estas sao as salas cadastradas no sistema: \n");
     for(i=0; i<id; i++){
         printf("%d: %s\n", salas[i].numero, salas[i].nome);
     }
+    
+    do{
+		codValido=0;
+		
+		printf("Digite o numero da sala que deseja consultar: \n");
+    	scanf("%d", &salaConsultada);
+	    getchar();
+	    
+	    if(salaConsultada == 0){ //confere se o numero digitado eh igual a 0
+	    	codValido=1;
+		} else {
+			for(k=0; k<id; k++){
+				if(salaConsultada != salas[k].numero){ //confere se o numero eh existente
+					codValido+=2;
+				}
+			}
+		}
+		
+		if(codValido == 1 || codValido == id*2){
+			printf("Codigo invalido. Insira um codigo valido!\n");
+		}
+		
+	} while (codValido == 1 || codValido == id*2);
 
-    printf("Digite o numero da sala que deseja consultar: \n");
-    scanf("%d", &salaConsultada);
-
-    for(j=0; salas[j].numero != salaConsultada && j<id; j++);
+    for(j=0; salas[j].numero != salaConsultada && j<id; j++); //procura a posicao de memoria onde o numero da sala foi alocado
+    
     printf("Estas sao as informacoes cadastradas na sala %d\n", salaConsultada);
     printf("Nome: %s\n", salas[j].nome);
     
