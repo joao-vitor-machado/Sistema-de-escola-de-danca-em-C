@@ -57,25 +57,59 @@ void cadastrarModalidade(Modalidade *modalidades, int *qtdModalidades){
 
 void excluirModalidade(Modalidade *modalidades, int *qtdModalidades){
 
-    int modalidadeExcluida, i, j;
+    int modalidadeExcluida, i, j, k, l, id, codValido=0;
     char op;
+    id = *qtdModalidades;
+    
+    printf("Estas são as modalidades cadastradas no sistema: \n");
+    for(j=0; j<id; j++){
+        printf("%d: %s\n", modalidades[j].codigo, modalidades[j].nome);
+    }
+    
+    do{
+		codValido=0;
+		
+		printf("Digite o numero da modalidade a ser excluida: \n");
+    	scanf("%d", &modalidadeExcluida);
+	    getchar();
+	    
+	    if(modalidadeExcluida == 0){ //confere se o codigo digitado eh igual a 0
+	    	codValido=1;
+		} else {
+			for(k=0; k<id; k++){
+				if(modalidadeExcluida != modalidades[k].codigo){ //confere se o codigo eh existente
+					codValido+=2;
+				}
+			}
+		}
+		
+		if(codValido == 1 || codValido == id*2){
+			printf("Codigo invalido. Insira um codigo valido!\n");
+		}
+		
+	} while (codValido == 1 || codValido == id*2);
 
-    printf("Digite o numero da modalidade a ser excluida: \n");
-    scanf("%d", &modalidadeExcluida);
     printf("Tem certeza que deseja excluir a modalidade %d? S/N\n", modalidadeExcluida);
     scanf("%c", &op);
-    if (op == 'S')
+    getchar();
+    
+    for (i = 0; modalidades[i].codigo != modalidadeExcluida; i++); //procura a posicao de memoria onde o codigo foi alocado
+    
+    if (op == 'S' || op == 's')
     {
-        for (i = 0; modalidades[i].codigo != modalidadeExcluida; i++);
-
-        for (j = i; j < *qtdModalidades; j++)
-        {
-            modalidades[j] = modalidades[j + 1];
+        (*qtdModalidades)--;
+        
+        for (l=0; l < id; l++){ 
+            modalidades[l] = modalidades[l + 1];
         }
-        *qtdModalidades -= 1;
-        //modalidades = (Modalidade *) realloc(modalidades,(id+5)*sizeof(Modalidade));
+        
+        if (*qtdModalidades % 5 != 0 && *qtdModalidades + 5 % 5 == 0)
+        {
+            modalidades = (Modalidade *) realloc(modalidades,(id)*sizeof(Modalidade));
+        }
+        
+        printf("Modalidade excluida!\n");
     }
-
 }
 
 void alterarModalidade(Modalidade *modalidades, int *qtdModalidades){

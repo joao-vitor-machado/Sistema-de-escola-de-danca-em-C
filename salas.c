@@ -54,23 +54,59 @@ void cadastrarSala(Sala *salas, int *qtdSalas)
 
 void excluirSala(Sala *salas, int *qtdSalas)
 {
-    int salaExcluida, i, j;
+    int salaExcluida, i, j, k, l, codValido=0, id;
     char op;
+    
+    id = *qtdSalas;
+    
+    printf("Estas são as salas cadastradas no sistema: \n");
+    for(j=0; j<id; j++){
+        printf("%d: %s\n", salas[j].numero, salas[j].nome);
+    }
+    
+    do{
+		codValido=0;
+		
+		printf("Digite o numero da sala a ser excluida: \n");
+    	scanf("%d", &salaExcluida);
+	    getchar();
+	    
+	    if(salaExcluida == 0){ //confere se o codigo digitado eh igual a 0
+	    	codValido=1;
+		} else {
+			for(k=0; k<id; k++){
+				if(salaExcluida != salas[k].numero){ //confere se o codigo eh existente
+					codValido+=2;
+				}
+			}
+		}
+		
+		if(codValido == 1 || codValido == id*2){
+			printf("Codigo invalido. Insira um codigo valido!\n");
+		}
+		
+	} while (codValido == 1 || codValido == id*2);
 
-    printf("Digite o numero da sala a ser excluida: \n");
-    scanf("%d", &salaExcluida);
     printf("Tem certeza que deseja excluir a sala %d? S/N\n", salaExcluida);
     scanf("%c", &op);
-    if (op == 'S')
+    getchar();
+    
+    for (i = 0; salas[i].numero != salaExcluida; i++); //procura a posicao de memoria onde o numero foi alocado
+    
+    if (op == 'S' || op == 's')
     {
-        for (i = 0; salas[i].numero != salaExcluida; i++);
-
-        for (j = i; j < *qtdSalas; j++)
-        {
-            salas[j] = salas[j + 1];
+        (*qtdSalas)--;
+        
+        for (l=0; l < id; l++){ 
+            salas[l] = salas[l + 1];
         }
-        *qtdSalas -= 1;
-        salas = realloc(salas, *qtdSalas * sizeof(Sala));
+        
+        if (*qtdSalas % 5 != 0 && *qtdSalas + 5 % 5 == 0)
+        {
+            salas = (Sala *) realloc(salas,(id)*sizeof(Sala));
+        }
+        
+        printf("Modalidade excluida!\n");
     }
 }
 
