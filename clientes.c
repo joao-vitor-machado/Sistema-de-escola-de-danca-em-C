@@ -323,9 +323,11 @@ void ExcluirCliente(Cliente *aluno, int *codigo, int *alunosCadastrados, int *ex
       printf("Voce esta prestes a excluir o aluno: %s\t de codigo: %d", aluno[index].nome, aluno[index].codigo);
       printf("\n---------------------------\n\n");
       printf("Voce tem certeza que deseja excluir?s/n:");
-      scanf("%c", &op);
       printf("\n---------------------------\n");
-
+      getchar();
+		scanf("%c", &op);
+		getchar();
+		
       if (op == 'S' || op == 's')
       {
          aluno[index].codigo = 0;

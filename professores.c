@@ -45,6 +45,7 @@ void cadastrarProfessor(Professor *professores, int *professoresCadastrados, Sal
 
     printf("\nDigite o código para a modalidade lecionada\n");
     scanf("%d", &modalidadePretendida);
+    getchar();
     
     for(i = 0; i < *qtdModalidades; i++){
     	if(modalidades[i].codigo == modalidadePretendida){
@@ -61,7 +62,7 @@ void cadastrarProfessor(Professor *professores, int *professoresCadastrados, Sal
 	getchar();
     printf("\nDigite a data de nascimento. Exemplo: 00/00/0000\n");
     fgets(professores[*professoresCadastrados].dataDeNascimento, 10, stdin);
-    
+    getchar();
     getchar();
     printf("\nDigite o local de nascimento\n");
     fgets(professores[*professoresCadastrados].localDeNascimento, 255, stdin);
@@ -176,6 +177,7 @@ void alterarProfessor(Professor *professores, int *professoresCadastrados, Sala 
     
     printf("\nQual o código do professor que deseja alterar>\n");
     scanf("%d", &codigo);
+    getchar();
 
     while (opcao != 0)
     {
@@ -196,6 +198,7 @@ void alterarProfessor(Professor *professores, int *professoresCadastrados, Sala 
         printf("---------------------------\n");
 
         scanf("%d", &opcao);
+        getchar();
 
         switch (opcao)
         {

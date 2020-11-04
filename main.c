@@ -199,6 +199,7 @@ int TelaMenuCliente()
     printf("0) *Cancelar\n");
     printf("---------------------------\n");
     scanf("%d", &opcao);
+    getchar();
     system("cls");
 
     return opcao;
