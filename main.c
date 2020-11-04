@@ -36,8 +36,8 @@ int main()
     {
         aluno[i].codigo = 0;
     }
-    salas = (Sala *)malloc(5 * sizeof(Sala));
-    modalidades = (Modalidade *)malloc(5 * sizeof(Modalidade));
+    salas = (Sala *)malloc(10 * sizeof(Sala));
+    modalidades = (Modalidade *)malloc(10 * sizeof(Modalidade));
     
     professores = (Professor *)malloc(sizeof(Professor));
     
@@ -79,7 +79,6 @@ int main()
     case 2:
     {
         TelaMenuProfessor();
-        getchar();
         scanf("%d", &opcaoSubMenu);
         switch (opcaoSubMenu)
         {
@@ -118,7 +117,7 @@ int main()
             consultarSala(salas, &qtdSalas);
             break;
         case 3:
-            alterarSala(salas);
+            alterarSala(salas, &qtdSalas);
             break;
         case 4:
             excluirSala(salas, &qtdSalas);
@@ -146,7 +145,7 @@ int main()
             consultarModalidade(modalidades, &qtdModalidades);
             break;
         case 3:
-            alterarModalidade(modalidades);
+            alterarModalidade(modalidades, &qtdModalidades);
             break;
         case 4:
             excluirModalidade(modalidades, &qtdModalidades);
@@ -163,7 +162,7 @@ int main()
     	break;
     default:
     {
-        printf("Opcao invalida!");
+        printf("Opcao invalida!\n");
         break;
     }
     }
