@@ -15,7 +15,6 @@ typedef struct
     int valorMensalidade;
     char dataVencimentoBoleto[11];
     int responsavel;
-    int qntModalidades;
 } Cliente;
 
 typedef struct professores{
