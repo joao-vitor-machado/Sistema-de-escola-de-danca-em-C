@@ -25,7 +25,7 @@ int ValidarCodigo();
 int main()
 {
     setlocale(LC_ALL, "");
-    int opcaoMenu, opcaoSubMenu, alunosCadastrados = 0, professoresCadastrados = 0, codigo = 0, qtdSalas=0, qtdModalidades = 0, i;
+    int opcaoMenu, opcaoSubMenu, alunosCadastrados = 0, professoresCadastrados = 0, codigo = 0, qtdSalas=0, qtdModalidades = 0, i,  alunosExcluidos = 0;
     Cliente *aluno;
     Professor *professores;
     Sala *salas;
@@ -53,28 +53,28 @@ int main()
     case 1:
     {
         opcaoSubMenu = TelaMenuCliente();
-        switch (opcaoSubMenu)
-        {
-        case 1:
-            CadastrarCliente(aluno, &alunosCadastrados);
-            break;
+            switch (opcaoSubMenu)
+            {
+            case 1:
+                CadastrarCliente(aluno, &alunosCadastrados);
+                break;
 
-        case 2:
-            codigo = ValidarCodigo();
-            ConsultarCliente(aluno, &codigo);
-            break;
+            case 2:
+                codigo = ValidarCodigo();
+                ConsultarCliente(aluno, &codigo, &alunosCadastrados);
+                break;
 
-        case 3:
-            codigo = ValidarCodigo();
-            AlterarCliente(aluno, &codigo);
-            break;
+            case 3:
+                codigo = ValidarCodigo();
+                AlterarCliente(aluno, &codigo, &alunosCadastrados);
+                break;
 
-        case 4:
-            codigo = ValidarCodigo();
-            ExcluirCliente(aluno, &codigo, &alunosCadastrados);
+            case 4:
+                codigo = ValidarCodigo();
+                ExcluirCliente(aluno, &codigo, &alunosCadastrados, &alunosExcluidos);
+                break;
+            }
             break;
-        }
-        break;
     }
     case 2:
     {
