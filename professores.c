@@ -23,6 +23,10 @@ void TelaMenuProfessor()
 void cadastrarProfessor(Professor *professores, int *professoresCadastrados, Sala *salas, int *qtdSalas, Modalidade *modalidades, int *qtdModalidades)
 {
 	
+	if((*professoresCadastrados % 5==0) && (*professoresCadastrados!=0)){
+    	salas = (Sala *) realloc(salas,(*professoresCadastrados+5)*sizeof(Sala));
+	}
+	
     int numHorarios, i, opcao, j, salaPretendida, modalidadePretendida;
     
     *professoresCadastrados += 1;
@@ -58,7 +62,6 @@ void cadastrarProfessor(Professor *professores, int *professoresCadastrados, Sal
     printf("\nDigite a data de nascimento. Exemplo: 00/00/0000\n");
     fgets(professores[*professoresCadastrados].dataDeNascimento, 10, stdin);
     
-	getchar();
     getchar();
     printf("\nDigite o local de nascimento\n");
     fgets(professores[*professoresCadastrados].localDeNascimento, 255, stdin);
