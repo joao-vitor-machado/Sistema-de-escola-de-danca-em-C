@@ -15,7 +15,6 @@ typedef struct
     int valorMensalidade;
     char dataVencimentoBoleto[11];
     int responsavel;
-    int qntModalidades;
 } Cliente;
 
 typedef struct professores{
@@ -35,21 +34,19 @@ typedef struct professores{
 
 typedef struct modalidades{
     char nome[100]; //nome da modalidade (ballet, jazz, sapateado, etc)
-    int codigo; //código da modalidade para consultas 
-    char descModalidade[200]; //descrição da modalidade (clássico, contemporâneo, feito em grupos, etc)
-    char descMateriais[200]; //descrição dos materiais necessários (roupas, sapatos, objetos como barra, etc)
+    int codigo; //codigo da modalidade para consultas 
+    char descModalidade[200]; //descricao da modalidade (classico, contemporaneo, feito em grupos, etc)
+    char descMateriais[200]; //descricao dos materiais necessarios (roupas, sapatos, objetos como barra, etc)
     float valorMensalidade; //valor da mensalidade da modalidade
-    int idade; //idade mínima para fazer a modalidade 
-    char nomeProfessor[100]; //professor que lecionará a aula
-    int sala; //sala onde será lecionada a aula
+    int idade; //idade minima para fazer a modalidade 
 } Modalidade;
 
 typedef struct salas{
-    char nome[100]; //nome de identificação da sala (baby, kid, teen, etc)
-    int numero; //número de identificação da sala (1, 2, 3, etc)
-    int diaSemana; //1- domingo; 2- segunda; 3- terça; assim por diante
-    int horario; //0: manhã (9:00 - 12:00); 1: tarde (14:00 - 17:00); 2: noite (18:00 - 21:00)
-    int matrizHorarios[3][7]; //0: disponível; 1: indisponível;
+    char nome[100]; //nome de identificacao da sala (baby, kid, teen, etc)
+    int numero; //numero de identificacao da sala (1, 2, 3, etc)
+    int diaSemana; //1- domingo; 2- segunda; 3- terca; assim por diante
+    int horario; //0: manha (9:00 - 12:00); 1: tarde (14:00 - 17:00); 2: noite (18:00 - 21:00)
+    int matrizHorarios[3][7]; //0: disponivel; 1: indisponivel;
 }Sala;
 
 
