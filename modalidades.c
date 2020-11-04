@@ -48,11 +48,7 @@ void cadastrarModalidade(Modalidade *modalidades, int *qtdModalidades){
     
     printf("Digite a idade minima para fazer esta modalidade: \n");
     scanf("%d", &modalidades[id].idade);
-    getchar();
-    
-    printf("Digite o nome do professor que lecionará a modalidade: \n");
-    fgets(modalidades[id].nomeProfessor, 100, stdin);
-    
+    getchar();    
 }
 
 void excluirModalidade(Modalidade *modalidades, int *qtdModalidades){
@@ -144,7 +140,7 @@ void alterarModalidade(Modalidade *modalidades, int *qtdModalidades){
 		
 	} while (codValido == 1 || codValido == id*2);
     
-    printf("Selecione a opcao que deseja alterar?\n1- nome\n2- descricao da modalidade\n3- descricao dos materiais\n4- valor da mensalidade\n5- idade minima\n6- professor\n");
+    printf("Selecione a opcao que deseja alterar?\n1- nome\n2- descricao da modalidade\n3- descricao dos materiais\n4- valor da mensalidade\n5- idade minima\n");
     scanf("%d", &op);
     getchar();
     
@@ -171,10 +167,6 @@ void alterarModalidade(Modalidade *modalidades, int *qtdModalidades){
     case 5:
         printf("Digite a nova idade minima: \n"); //alteracao idade minima
         scanf("%d", &modalidades[i].idade);
-        break;
-    case 6:
-        printf("Digite o nome do novo professor: \n"); //alteracao prof
-        scanf("%d", &modalidades[i].nomeProfessor);
         break;
     default:
         printf("Opcao invalida!\n");
@@ -224,6 +216,5 @@ void consultarModalidade(Modalidade *modalidades, int *qtdModalidades){
     printf("Descricao dos materiais: %s\n", modalidades[i].descMateriais);
     printf("Valor da mensalidade: %.2f\n", modalidades[i].valorMensalidade);
     printf("Idade minima: %d\n", modalidades[i].idade);
-    printf("Nome do professor: %s\n", modalidades[i].nomeProfessor);
 }
 
